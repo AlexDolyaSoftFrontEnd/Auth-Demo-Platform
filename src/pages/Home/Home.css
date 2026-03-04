@@ -1,0 +1,128 @@
+/* src/index.css */
+:root {
+  /* Отступы карточек */
+  --card-margin-left: 300px;
+  --card-margin-left-mobile: 10px;
+  --card-margin-left-small: 8px;
+  
+  /* Паддинги карточек */
+  --card-padding: 32px;
+  --card-padding-mobile: 24px;
+  --card-padding-small: 20px 16px;
+  
+  /* Размеры шрифтов */
+  --card-title-size: 28px;
+  --card-title-size-mobile: 24px;
+  --card-title-size-small: 22px;
+  
+  --card-desc-size: 16px;
+  --card-desc-size-mobile: 15px;
+  --card-desc-size-small: 14px;
+  
+  /* Максимальная ширина */
+  --card-max-width: 800px;
+  --card-max-width-mobile: calc(100% - 20px);
+  --card-max-width-small: calc(100% - 16px);
+  
+  /* Цвета и эффекты */
+  --card-bg: #fff;
+  --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --card-radius: 12px;
+  --card-title-color: #333;
+  --card-desc-color: #666;
+}
+
+/* Обёртка страницы с сайдбаром */
+.page-wrapper {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Основной контент с отступом под сайдбар */
+.page-content {
+  flex: 1;
+  margin-left: 0;
+  padding: 32px;
+  background-color: #f5f7fa;
+  min-height: 100vh;
+  transition: all 0.25s ease;
+}
+
+/* ========== Универсальная карточка ========== */
+.page-card {
+  background: var(--card-bg);
+  padding: var(--card-padding);
+  border-radius: var(--card-radius);
+  box-shadow: var(--card-shadow);
+  max-width: var(--card-max-width);
+  margin-left: var(--card-margin-left);
+  transition: margin-left 0.25s ease, padding 0.25s ease;
+}
+
+.page-card__title {
+  margin: 0 0 16px;
+  font-size: var(--card-title-size);
+  color: var(--card-title-color);
+  font-weight: 600;
+}
+
+.page-card__description {
+  margin: 0;
+  color: var(--card-desc-color);
+  line-height: 1.6;
+  font-size: var(--card-desc-size);
+}
+
+/* ========== Адаптивность ========== */
+@media (max-width: 768px) {
+  :root {
+    --card-margin-left: var(--card-margin-left-mobile);
+    --card-padding: var(--card-padding-mobile);
+    --card-title-size: var(--card-title-size-mobile);
+    --card-desc-size: var(--card-desc-size-mobile);
+    --card-max-width: var(--card-max-width-mobile);
+  }
+  
+  .page-content {
+    padding: 72px 16px 16px; 
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --card-margin-left: var(--card-margin-left-small);
+    --card-padding: var(--card-padding-small);
+    --card-title-size: var(--card-title-size-small);
+    --card-desc-size: var(--card-desc-size-small);
+    --card-max-width: var(--card-max-width-small);
+  }
+  
+  .page-card {
+    border-radius: 10px;
+  }
+}
+
+/* Лоадер */
+.page-loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  gap: 16px;
+  color: #666;
+  font-size: 16px;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #1976d2;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

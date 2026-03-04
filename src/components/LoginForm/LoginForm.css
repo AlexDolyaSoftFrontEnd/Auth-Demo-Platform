@@ -28,7 +28,6 @@
   transform: scale(1.02);
 }
 
-
 /* ========== Контейнер формы ========== */
 .login-page__form-container {
   flex: 0 0 480px;
@@ -52,14 +51,8 @@
 }
 
 @keyframes slideInRight {
-  from {
-    opacity: 0;
-    transform: translateX(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+  from { opacity: 0; transform: translateX(30px); }
+  to { opacity: 1; transform: translateX(0); }
 }
 
 /* ========== Логотип ========== */
@@ -227,14 +220,8 @@
 }
 
 @keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* ========== Кнопка отправки ========== */
@@ -324,7 +311,14 @@
 /* ========== Footer ========== */
 .login-form__footer {
   margin-top: 24px;
-  text-align: center;
+}
+
+.login-form__hint-row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; 
+  gap: 12px;
+  flex-wrap: wrap;
 }
 
 .login-form__hint {
@@ -332,9 +326,79 @@
   color: #86868b;
   margin: 0;
   line-height: 1.5;
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 
-/* ========== Apple-style Notification (Blue Accent) ========== */
+.login-form__demo-email {
+  background: #f5f5f7;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-family: 'SF Mono', 'Monaco', 'Courier New', monospace;
+  font-size: 12px;
+  color: #1d1d1f;
+  font-weight: 500;
+}
+
+/* ========== Кнопка копирования ========== */
+.login-form__copy-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: transparent;
+  border: 1px solid #d2d2d7;
+  border-radius: 8px;
+  color: #6e6e73;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.login-form__copy-btn:hover {
+  background: #f5f5f7;
+  color: #1d1d1f;
+  border-color: #aeaeb2;
+}
+
+.login-form__copy-btn:active {
+  transform: scale(0.98);
+}
+
+.login-form__copy-btn.copied {
+  background: #e3f2fd;
+  border-color: #0066b3;
+  color: #0066b3;
+}
+
+.login-form__copy-icon {
+  width: 14px;
+  height: 14px;
+  transition: transform 0.2s ease;
+}
+
+.login-form__copy-btn:hover .login-form__copy-icon {
+  transform: scale(1.1);
+}
+
+.login-form__copy-btn.copied .login-form__copy-icon {
+  animation: popIn 0.2s ease;
+}
+
+@keyframes popIn {
+  0% { transform: scale(0.8); opacity: 0; }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.login-form__copy-text {
+  line-height: 1;
+}
+
+/* ========== Apple-style Notification ========== */
 .apple-notification {
   position: fixed;
   top: 24px;
@@ -359,23 +423,20 @@
   animation: notificationSlideDown 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* Успешное уведомление — синий акцент */
 .apple-notification--success {
-  background: rgba(230, 243, 255, 0.98); /* light blue tint */
-  border-color: rgba(0, 102, 179, 0.4);  /* brand blue */
+  background: rgba(230, 243, 255, 0.98);
+  border-color: rgba(0, 102, 179, 0.4);
 }
 
 .apple-notification__icon {
   width: 36px;
   height: 36px;
   border-radius: 12px;
-  /* Синий градиент в стиле бренда */
   background: linear-gradient(135deg, #0066b3 0%, #009fe3 100%);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  /* Тень в тон акцента */
   box-shadow: 0 4px 12px rgba(0, 102, 179, 0.4);
 }
 
@@ -401,7 +462,7 @@
 
 .apple-notification__message {
   font-size: 13px;
-  color: #5a5a5c; /* чуть темнее для контраста на светло-голубом */
+  color: #5a5a5c;
   margin: 0;
   line-height: 1.4;
   overflow: hidden;
@@ -409,81 +470,38 @@
   white-space: nowrap;
 }
 
-/* Анимация появления */
 @keyframes notificationSlideDown {
-  from {
-    transform: translateX(-50%) translateY(-120%);
-    opacity: 0;
-  }
-  10% {
-    opacity: 1;
-  }
-  to {
-    transform: translateX(-50%) translateY(0);
-    opacity: 1;
-  }
+  from { transform: translateX(-50%) translateY(-120%); opacity: 0; }
+  10% { opacity: 1; }
+  to { transform: translateX(-50%) translateY(0); opacity: 1; }
 }
 
-/* ========== Варианты уведомлений ========== */
-
-/* Ошибка — красный акцент */
+/* Варианты уведомлений */
 .apple-notification--error {
   background: rgba(255, 240, 240, 0.98);
   border-color: rgba(255, 59, 48, 0.4);
 }
-
 .apple-notification--error .apple-notification__icon {
   background: linear-gradient(135deg, #ff3b30 0%, #ff6b57 100%);
   box-shadow: 0 4px 12px rgba(255, 59, 48, 0.4);
 }
 
-/* Предупреждение — оранжевый акцент */
 .apple-notification--warning {
   background: rgba(255, 245, 230, 0.98);
   border-color: rgba(255, 149, 0, 0.4);
 }
-
 .apple-notification--warning .apple-notification__icon {
   background: linear-gradient(135deg, #ff9500 0%, #ffb347 100%);
   box-shadow: 0 4px 12px rgba(255, 149, 0, 0.4);
 }
 
-/* Информация — нейтральный синий */
 .apple-notification--info {
   background: rgba(230, 243, 255, 0.98);
   border-color: rgba(0, 122, 255, 0.4);
 }
-
 .apple-notification--info .apple-notification__icon {
   background: linear-gradient(135deg, #007aff 0%, #5ac8fa 100%);
   box-shadow: 0 4px 12px rgba(0, 122, 255, 0.4);
-}
-
-/* ========== Адаптивность для уведомлений ========== */
-@media (max-width: 768px) {
-  .apple-notification {
-    top: 16px;
-    left: 16px;
-    right: 16px;
-    transform: none;
-    min-width: auto;
-    width: auto;
-    margin: 0 auto;
-  }
-  
-  @keyframes notificationSlideDown {
-    from {
-      transform: translateY(-120%);
-      opacity: 0;
-    }
-    10% {
-      opacity: 1;
-    }
-    to {
-      transform: translateY(0);
-      opacity: 1;
-    }
-  }
 }
 
 /* ========== Адаптивность ========== */
@@ -495,13 +513,9 @@
 }
 
 @media (max-width: 768px) {
-  .login-page {
-    flex-direction: column;
-  }
+  .login-page { flex-direction: column; }
   
-  .login-page__background {
-    display: none;
-  }
+  .login-page__background { display: none; }
   
   .login-page__form-container {
     flex: 1;
@@ -512,14 +526,9 @@
     border-top: 1px solid rgba(0, 0, 0, 0.08);
   }
   
-  .login-form {
-    max-width: 100%;
-  }
+  .login-form { max-width: 100%; }
   
-  .login-form__logo {
-    max-width: 280px;
-    margin-bottom: 20px;
-  }
+  .login-form__logo { max-width: 280px; margin-bottom: 20px; }
   
   .apple-notification {
     top: 16px;
@@ -531,50 +540,38 @@
   }
   
   @keyframes notificationSlideDown {
-    from {
-      transform: translateY(-120%);
-      opacity: 0;
-    }
-    10% {
-      opacity: 1;
-    }
-    to {
-      transform: translateY(0);
-      opacity: 1;
-    }
+    from { transform: translateY(-120%); opacity: 0; }
+    10% { opacity: 1; }
+    to { transform: translateY(0); opacity: 1; }
   }
 }
 
 @media (max-width: 480px) {
-  .login-page__form-container {
-    padding: 24px 20px;
+  .login-page__form-container { padding: 24px 20px; }
+  
+  .login-form__logo { max-width: 240px; }
+  
+  .login-form__subtitle { font-size: 14px; margin-bottom: 28px; }
+  
+  .login-form__input { padding: 13px 42px 13px 46px; font-size: 15px; }
+  
+  .login-form__submit-btn { padding: 15px 20px; font-size: 15px; }
+  
+  .login-form__hint-row {
+    flex-direction: column;
+    align-items: flex-start; 
+    gap: 8px;
   }
   
-  .login-form__logo {
-    max-width: 240px;
-  }
-  
-  .login-form__subtitle {
-    font-size: 14px;
-    margin-bottom: 28px;
-  }
-  
-  .login-form__input {
-    padding: 13px 42px 13px 46px;
-    font-size: 15px;
-  }
-  
-  .login-form__submit-btn {
-    padding: 15px 20px;
-    font-size: 15px;
+  .login-form__copy-btn {
+    width: 100%;
+    justify-content: center;
   }
 }
 
-/* ========== Фокус для доступности ========== */
+/* Доступность */
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
+  *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
@@ -583,7 +580,8 @@
 
 .login-form__input:focus-visible,
 .login-form__submit-btn:focus-visible,
-.login-form__clear-btn:focus-visible {
+.login-form__clear-btn:focus-visible,
+.login-form__copy-btn:focus-visible {
   outline: 2px solid #0066b3;
   outline-offset: 2px;
 }
