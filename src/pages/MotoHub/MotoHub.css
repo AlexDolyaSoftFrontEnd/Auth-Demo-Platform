@@ -1,0 +1,315 @@
+/* ===== Глобальные переменные ===== */
+:root {
+  --bg-color: #f8f9fa;
+  --card-bg: #ffffff;
+  --text-main: #0b1a2e;
+  --text-secondary: #6c757d;
+  --text-muted: #adb5bd;
+  --accent-color: #4f46e5; /* Синий акцент */
+  --accent-hover: #4338ca;
+  --success-color: #10b981;
+  --warning-color: #f59e0b;
+  --error-color: #ef4444;
+  --border-color: #e5e7eb;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+}
+
+/* ===== Обёртка страницы ===== */
+.page-wrapper {
+  display: flex;
+  min-height: 100vh;
+  background-color: var(--bg-color);
+}
+
+/* Основной контент справа от сайдбара */
+.page-content {
+  flex: 1;
+  padding: 32px 40px;
+  max-width: calc(100% - 250px);
+  margin-left: auto;
+}
+
+/* ===== Заголовок ===== */
+.moto-header {
+  margin-bottom: 32px;
+}
+
+.meta-info {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  transition: background-color 0.2s ease;
+}
+
+.meta-info:hover {
+  background-color: #e5e7eb;
+}
+
+.info-icon {
+  font-size: 12px;
+}
+
+.page-title {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-size: 38px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--text-main);
+  margin-top: 8px;
+  margin-bottom: 8px;
+  letter-spacing: -0.02em;
+}
+
+/* ===== Навигационные табы ===== */
+.tabs-nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 2px solid var(--border-color);
+  margin-bottom: 32px;
+  padding-bottom: 8px;
+  overflow-x: auto;
+}
+
+.tab-btn {
+  background: none;
+  border: none;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 12px 16px;
+  position: relative;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  border-radius: var(--radius-sm);
+}
+
+.tab-btn:hover {
+  color: var(--text-main);
+  background-color: #f3f4f6;
+}
+
+.tab-btn.active {
+  color: var(--text-main);
+  font-weight: 600;
+}
+
+.tab-btn.active::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background-color: var(--accent-color);
+  border-radius: 3px 3px 0 0;
+}
+
+.icon-star, .icon-heart, .icon-hide {
+  font-size: 18px;
+  vertical-align: middle;
+  margin-right: 8px;
+}
+
+.icon-star { color: var(--warning-color); }
+.icon-heart { color: var(--error-color); }
+.icon-hide { color: var(--text-muted); }
+
+/* ===== Контейнер контента ===== */
+.content-container {
+  max-width: 1200px;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== Список мотоциклов ===== */
+.motorcycles-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ===== Карточка мотоцикла ===== */
+.motorcycle-card {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  transition: all 0.2s ease;
+  box-shadow: var(--shadow-sm);
+}
+
+.motorcycle-card:hover {
+  border-color: var(--accent-color);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.motorcycle-card__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 8px;
+}
+
+.motorcycle-card__title {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-main);
+  line-height: 1.4;
+}
+
+.motorcycle-card__brand {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+}
+
+.motorcycle-card__details {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.detail-icon {
+  color: var(--accent-color);
+  font-size: 14px;
+}
+
+.mileage {
+  font-weight: 500;
+}
+
+.motorcycle-card__category {
+  font-size: 12px;
+  padding: 4px 12px;
+  border-radius: var(--radius-sm);
+  background-color: #dbeafe;
+  color: #1e40af;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+/* ===== Секции ===== */
+.section-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text-main);
+  margin-bottom: 24px;
+}
+
+.recommendations-container,
+.favorites-container,
+.hidden-bikes-container {
+  padding: 8px;
+}
+
+/* ===== Пустое состояние ===== */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  text-align: center;
+  background-color: var(--card-bg);
+  border-radius: var(--radius-lg);
+  border: 1px dashed var(--border-color);
+}
+
+.empty-state__icon {
+  font-size: 48px;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+
+.empty-state__text {
+  font-size: 16px;
+  color: var(--text-secondary);
+}
+
+/* ===== Адаптивность ===== */
+@media (max-width: 768px) {
+  .page-content {
+    padding: 20px 24px;
+    max-width: 100%;
+  }
+
+  .page-title {
+    font-size: 28px;
+  }
+
+  .tabs-nav {
+    gap: 4px;
+    padding: 8px;
+  }
+
+  .tab-btn {
+    padding: 10px 12px;
+    font-size: 14px;
+  }
+
+  .motorcycle-card {
+    padding: 16px;
+  }
+
+  .motorcycle-card__title {
+    font-size: 16px;
+  }
+
+  .motorcycle-card__details {
+    gap: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-content {
+    padding: 16px;
+  }
+
+  .page-title {
+    font-size: 24px;
+  }
+
+  .tabs-nav {
+    gap: 2px;
+  }
+
+  .tab-btn {
+    padding: 8px 10px;
+    font-size: 13px;
+  }
+
+  .motorcycle-card {
+    padding: 12px;
+  }
+
+  .motorcycle-card__details {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}

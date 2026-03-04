@@ -4,12 +4,13 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import type { RootState } from './store';
 
-// Ленивая загрузка
+// Ленивая загрузка компонентов
 const LoginForm = React.lazy(() => import('./components/LoginForm/LoginForm'));
 const Home = React.lazy(() => import('./pages/Home/Home'));
-const Calendar = React.lazy(() => import('./pages/Calendar/Calendar'));
+const MotoHub = React.lazy(() => import('./pages/MotoHub/MotoHub'));
 const Settings = React.lazy(() => import('./pages/Settings/Settings'));
 
+// Компонент загрузки страницы
 const PageLoader: React.FC = () => (
   <div className="page-loader">
     <div className="spinner" />
@@ -17,6 +18,7 @@ const PageLoader: React.FC = () => (
   </div>
 );
 
+// Защищённый маршрут для аутентифицированных пользователей
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
   
@@ -27,14 +29,16 @@ const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) =
   return <>{children}</>;
 };
 
-// Исправлено: добавлены () => 
+// Основной компонент приложения
 const App: React.FC = () => {
   return (
     <BrowserRouter>
       <Suspense fallback={<PageLoader />}>
         <Routes>
+          {/* Страница входа */}
           <Route path="/login" element={<LoginForm />} />
           
+          {/* Главная страница */}
           <Route 
             path="/home" 
             element={
@@ -44,15 +48,17 @@ const App: React.FC = () => {
             } 
           />
           
+          {/* Раздел мотоциклов */}
           <Route 
-            path="/calendar" 
+            path="/motohub" 
             element={
               <ProtectedRoute>
-                <Calendar />
+                <MotoHub />
               </ProtectedRoute>
             } 
           />
           
+          {/* Настройки профиля */}
           <Route 
             path="/settings" 
             element={
@@ -62,7 +68,10 @@ const App: React.FC = () => {
             } 
           />
           
+          {/* Редирект с корневого пути на главную */}
           <Route path="/" element={<Navigate to="/home" replace />} />
+          
+          {/* Обработка неопознанных маршрутов */}
           <Route path="*" element={<Navigate to="/home" replace />} />
         </Routes>
       </Suspense>

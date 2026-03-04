@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, NavLink, useLocation } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { logout } from '../../store/authSlice';
-import { FiCalendar, FiSettings, FiLogOut, FiHome, FiX } from 'react-icons/fi';
+import { FiHome, FiCalendar, FiSettings, FiLogOut, FiX, FiUser } from 'react-icons/fi';
 import './Sidebar.css';
 
 const Sidebar: React.FC = () => {
@@ -12,13 +12,12 @@ const Sidebar: React.FC = () => {
   const { user } = useAppSelector((state) => state.auth);
   
   const [isMobileOpen, setIsMobileOpen] = useState(false);
-  // 👇 Отслеживаем, было ли открыто меню на мобильном, чтобы восстановить скролл правильно
   const [wasMobileOpen, setWasMobileOpen] = useState(false);
 
   // Проверка: является ли устройство мобильным
   const isMobile = () => window.innerWidth <= 768;
 
-  // Закрытие меню при изменении маршрута
+  // Закрытие меню при изменении маршрута на мобильных
   useEffect(() => {
     if (isMobile()) {
       setIsMobileOpen(false);
@@ -33,12 +32,10 @@ const Sidebar: React.FC = () => {
       document.body.style.overflow = 'hidden';
       setWasMobileOpen(true);
     } else if (!mobile && wasMobileOpen) {
-      // Если перешли с мобильного на десктоп — сбрасываем
       document.body.style.overflow = '';
       setWasMobileOpen(false);
       setIsMobileOpen(false);
     } else if (!isMobileOpen && wasMobileOpen) {
-      // Меню закрыли на мобильном — возвращаем скролл
       document.body.style.overflow = '';
       setWasMobileOpen(false);
     }
@@ -52,7 +49,6 @@ const Sidebar: React.FC = () => {
   useEffect(() => {
     const handleResize = () => {
       if (!isMobile() && isMobileOpen) {
-        // При расширении окна закрываем меню и возвращаем скролл
         setIsMobileOpen(false);
         document.body.style.overflow = '';
         setWasMobileOpen(false);
@@ -86,6 +82,7 @@ const Sidebar: React.FC = () => {
         role="button"
         tabIndex={isMobileOpen ? 0 : -1}
         aria-hidden={!isMobileOpen}
+        style={{ pointerEvents: isMobileOpen ? 'auto' : 'none' }}
       />
 
       {/* Кнопка гамбургер */}
@@ -101,7 +98,6 @@ const Sidebar: React.FC = () => {
           <span className="sidebar-toggle__line sidebar-toggle__line--middle" />
           <span className="sidebar-toggle__line sidebar-toggle__line--bottom" />
         </span>
-        {/* Иконка крестика для закрытия (альтернативный вариант) */}
         <FiX className="sidebar-toggle__close-icon" />
       </button>
 
@@ -136,18 +132,20 @@ const Sidebar: React.FC = () => {
                 <span>Главная</span>
               </NavLink>
             </li>
+            
             <li className="sidebar__menu-item">
               <NavLink 
-                to="/calendar" 
+                to="/motohub" 
                 className={({ isActive }) => 
                   `sidebar__link ${isActive ? 'active' : ''}`
                 }
                 onClick={closeMobileMenu}
               >
-                <FiCalendar className="sidebar__icon" />
-                <span>Календарь</span>
+                <FiUser className="sidebar__icon" />
+                <span>MotoHub</span>
               </NavLink>
             </li>
+            
             <li className="sidebar__menu-item">
               <NavLink 
                 to="/settings" 
