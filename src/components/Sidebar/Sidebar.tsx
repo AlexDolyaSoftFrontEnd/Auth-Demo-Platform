@@ -65,7 +65,7 @@ interface NavItem {
   end?: boolean;
 }
 
-// Массив элементов навигации — легко расширять и тестировать
+// Массив элементов навигации
 const NAV_ITEMS: NavItem[] = [
   {
     to: '/home',
