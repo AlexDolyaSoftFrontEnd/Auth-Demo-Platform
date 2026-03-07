@@ -1,188 +1,251 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { useNavigate, NavLink, useLocation } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { logout } from '../../store/authSlice';
-import { FiHome, FiCalendar, FiSettings, FiLogOut, FiX, FiUser } from 'react-icons/fi';
+import { FiHome, FiSettings, FiLogOut, FiX, FiUser, FiMenu } from 'react-icons/fi';
 import './Sidebar.css';
 
-const Sidebar: React.FC = () => {
+// ============================================
+// КАСТОМНЫЕ ХУКИ
+// ============================================
+
+// Хук для отслеживания медиа-запроса
+const useMediaQuery = (query: string): boolean => {
+  const [matches, setMatches] = useState(() => window.matchMedia(query).matches);
+
+  useEffect(() => {
+    const media = window.matchMedia(query);
+    
+    // Функция обновления состояния
+    const updateMatch = () => setMatches(media.matches);
+    
+    // Подписываемся на изменения
+    media.addEventListener('change', updateMatch);
+    updateMatch(); // начальное значение
+    
+    // Очистка при размонтировании
+    return () => media.removeEventListener('change', updateMatch);
+  }, [query]);
+
+  return matches;
+};
+
+// Хук для блокировки скролла тела документа
+const useLockBodyScroll = (locked: boolean): void => {
+  useEffect(() => {
+    const originalOverflow = document.body.style.overflow;
+    const originalPaddingRight = document.body.style.paddingRight;
+    
+    if (locked) {
+      // Сохраняем ширину скроллбара для компенсации
+      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+      document.body.style.overflow = 'hidden';
+      document.body.style.paddingRight = `${scrollbarWidth}px`;
+    } else {
+      document.body.style.overflow = originalOverflow;
+      document.body.style.paddingRight = originalPaddingRight;
+    }
+    
+    return () => {
+      document.body.style.overflow = originalOverflow;
+      document.body.style.paddingRight = originalPaddingRight;
+    };
+  }, [locked]);
+};
+
+// ============================================
+// КОНФИГУРАЦИЯ НАВИГАЦИИ
+// ============================================
+
+// Тип для элемента навигации
+interface NavItem {
+  to: string;
+  label: string;
+  icon: React.ReactNode;
+  end?: boolean;
+}
+
+// Массив элементов навигации — легко расширять и тестировать
+const NAV_ITEMS: NavItem[] = [
+  {
+    to: '/home',
+    label: 'Главная',
+    icon: <FiHome />,
+    end: true,
+  },
+  {
+    to: '/motohub',
+    label: 'MotoHub',
+    icon: <FiUser />,
+  },
+  {
+    to: '/settings',
+    label: 'Настройки',
+    icon: <FiSettings />,
+  },
+];
+
+// ============================================
+// ОСНОВНОЙ КОМПОНЕНТ
+// ============================================
+
+const Sidebar: React.FC = React.memo(() => {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useAppDispatch();
   const { user } = useAppSelector((state) => state.auth);
   
-  const [isMobileOpen, setIsMobileOpen] = useState(false);
-  const [wasMobileOpen, setWasMobileOpen] = useState(false);
+  // Отслеживаем мобильный брейкпоинт через медиа-запрос
+  const isMobile = useMediaQuery('(max-width: 768px)');
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  // Проверка: является ли устройство мобильным
-  const isMobile = () => window.innerWidth <= 768;
+  // Блокируем скролл тела при открытом мобильном меню
+  useLockBodyScroll(isMobile && isMobileMenuOpen);
 
-  // Закрытие меню при изменении маршрута на мобильных
+  // Закрываем мобильное меню при смене маршрута
   useEffect(() => {
-    if (isMobile()) {
-      setIsMobileOpen(false);
+    if (isMobile) {
+      setIsMobileMenuOpen(false);
     }
-  }, [location.pathname]);
+  }, [location.pathname, isMobile]);
 
-  // Управление скроллом body
+  // Закрываем меню при переходе с мобильного на десктоп
   useEffect(() => {
-    const mobile = isMobile();
-    
-    if (mobile && isMobileOpen) {
-      document.body.style.overflow = 'hidden';
-      setWasMobileOpen(true);
-    } else if (!mobile && wasMobileOpen) {
-      document.body.style.overflow = '';
-      setWasMobileOpen(false);
-      setIsMobileOpen(false);
-    } else if (!isMobileOpen && wasMobileOpen) {
-      document.body.style.overflow = '';
-      setWasMobileOpen(false);
+    if (!isMobile && isMobileMenuOpen) {
+      setIsMobileMenuOpen(false);
     }
-    
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, [isMobileOpen, wasMobileOpen]);
+  }, [isMobile, isMobileMenuOpen]);
 
-  // Обработчик изменения размера окна
-  useEffect(() => {
-    const handleResize = () => {
-      if (!isMobile() && isMobileOpen) {
-        setIsMobileOpen(false);
-        document.body.style.overflow = '';
-        setWasMobileOpen(false);
-      }
-    };
-    
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, [isMobileOpen]);
+  // Обработчик выхода из аккаунта
+  const handleLogout = useCallback(() => {
+    try {
+      dispatch(logout());
+      navigate('/login', { replace: true });
+    } catch (error) {
+      console.error('Ошибка при выходе:', error);
+      navigate('/login', { replace: true });
+    }
+  }, [dispatch, navigate]);
 
-  const handleLogout = () => {
-    dispatch(logout());
-    navigate('/login', { replace: true });
-  };
+  // Переключение мобильного меню
+  const toggleMobileMenu = useCallback(() => {
+    setIsMobileMenuOpen((prev) => !prev);
+  }, []);
 
-  const toggleMobileMenu = () => {
-    setIsMobileOpen((prev) => !prev);
-  };
+  // Закрытие мобильного меню
+  const closeMobileMenu = useCallback(() => {
+    setIsMobileMenuOpen(false);
+  }, []);
 
-  const closeMobileMenu = () => {
-    setIsMobileOpen(false);
-  };
+  // Мемоизируем аватар пользователя
+  const userAvatar = useMemo(() => {
+    return user?.email?.charAt(0).toUpperCase() || 'U';
+  }, [user?.email]);
 
   return (
     <>
-      {/* Overlay для мобильных */}
-      <div 
-        className={`sidebar-overlay ${isMobileOpen ? 'sidebar-overlay--visible' : ''}`}
-        onClick={closeMobileMenu}
-        onKeyDown={(e) => e.key === 'Enter' && closeMobileMenu()}
-        role="button"
-        tabIndex={isMobileOpen ? 0 : -1}
-        aria-hidden={!isMobileOpen}
-        style={{ pointerEvents: isMobileOpen ? 'auto' : 'none' }}
-      />
+      {/* Overlay для мобильных — затемнение фона */}
+      {isMobile && (
+        <div 
+          className={`sidebar-overlay ${isMobileMenuOpen ? 'sidebar-overlay--visible' : ''}`}
+          onClick={closeMobileMenu}
+          onKeyDown={(e) => e.key === 'Enter' && closeMobileMenu()}
+          role="button"
+          tabIndex={isMobileMenuOpen ? 0 : -1}
+          aria-hidden={!isMobileMenuOpen}
+          aria-label="Закрыть меню"
+        />
+      )}
 
-      {/* Кнопка гамбургер */}
-      <button 
-        className={`sidebar-toggle ${isMobileOpen ? 'sidebar-toggle--active' : ''}`}
-        onClick={toggleMobileMenu}
-        aria-label={isMobileOpen ? 'Закрыть меню' : 'Открыть меню'}
-        aria-expanded={isMobileOpen}
-        aria-controls="sidebar-nav"
-      >
-        <span className="sidebar-toggle__box">
-          <span className="sidebar-toggle__line sidebar-toggle__line--top" />
-          <span className="sidebar-toggle__line sidebar-toggle__line--middle" />
-          <span className="sidebar-toggle__line sidebar-toggle__line--bottom" />
-        </span>
-        <FiX className="sidebar-toggle__close-icon" />
-      </button>
+      {/* Кнопка гамбургер — только на мобильных */}
+      {isMobile && (
+        <button 
+          className={`sidebar-toggle ${isMobileMenuOpen ? 'sidebar-toggle--active' : ''}`}
+          onClick={toggleMobileMenu}
+          aria-label={isMobileMenuOpen ? 'Закрыть меню' : 'Открыть меню'}
+          aria-expanded={isMobileMenuOpen}
+          aria-controls="sidebar-nav"
+          type="button"
+        >
+          <span className="sidebar-toggle__icon-wrapper">
+            <FiMenu className="sidebar-toggle__icon--open" aria-hidden="true" />
+          </span>
+        </button>
+      )}
 
       {/* Сайдбар */}
       <nav 
         id="sidebar-nav"
-        className={`sidebar ${isMobileOpen ? 'sidebar--visible' : ''}`}
+        className={`sidebar ${isMobileMenuOpen ? 'sidebar--visible' : ''} ${isMobile ? 'sidebar--mobile' : 'sidebar--desktop'}`}
         aria-label="Основная навигация"
       >
         <div className="sidebar__container">
           {/* Header с логотипом */}
-          <div className="sidebar__header">
+          <header className="sidebar__header">
             <img 
               src="https://cdn.dribbble.com/userupload/44970967/file/bb19b75c7489d8dadb8b1b709bb8ee65.png?resize=400x0" 
-              alt="Logo" 
-              className="sidebar__logo" 
+              alt="MotoHub Logo" 
+              className="sidebar__logo"
+              loading="lazy"
             />
-          </div>
+          </header>
           
-          {/* Навигация */}
-          <ul className="sidebar__menu">
-            <li className="sidebar__menu-item">
-              <NavLink 
-                to="/home" 
-                className={({ isActive }) => 
-                  `sidebar__link ${isActive ? 'active' : ''}`
-                }
-                end
-                onClick={closeMobileMenu}
-              >
-                <FiHome className="sidebar__icon" />
-                <span>Главная</span>
-              </NavLink>
-            </li>
-            
-            <li className="sidebar__menu-item">
-              <NavLink 
-                to="/motohub" 
-                className={({ isActive }) => 
-                  `sidebar__link ${isActive ? 'active' : ''}`
-                }
-                onClick={closeMobileMenu}
-              >
-                <FiUser className="sidebar__icon" />
-                <span>MotoHub</span>
-              </NavLink>
-            </li>
-            
-            <li className="sidebar__menu-item">
-              <NavLink 
-                to="/settings" 
-                className={({ isActive }) => 
-                  `sidebar__link ${isActive ? 'active' : ''}`
-                }
-                onClick={closeMobileMenu}
-              >
-                <FiSettings className="sidebar__icon" />
-                <span>Настройки</span>
-              </NavLink>
-            </li>
+          {/* Навигационное меню */}
+          <ul className="sidebar__menu" role="menubar">
+            {NAV_ITEMS.map((item) => (
+              <li key={item.to} className="sidebar__menu-item" role="none">
+                <NavLink 
+                  to={item.to}
+                  className={({ isActive }) => 
+                    `sidebar__link ${isActive ? 'active' : ''}`
+                  }
+                  end={item.end}
+                  onClick={closeMobileMenu}
+                  role="menuitem"
+                >
+                  <span className="sidebar__icon" aria-hidden="true">
+                    {item.icon}
+                  </span>
+                  <span className="sidebar__label">{item.label}</span>
+                </NavLink>
+              </li>
+            ))}
           </ul>
 
-          {/* Footer с профилем и выходом */}
-          <div className="sidebar__footer">
+          {/* Footer с профилем и кнопкой выхода */}
+          <footer className="sidebar__footer">
             <div className="sidebar__user-info">
-              <div className="sidebar__avatar" aria-label="Аватар пользователя">
-                {user?.email?.charAt(0).toUpperCase() || 'U'}
+              <div 
+                className="sidebar__avatar" 
+                aria-label={`Пользователь: ${user?.email || 'Гость'}`}
+              >
+                {userAvatar}
               </div>
-              <div className="sidebar__user-email" title={user?.email}>
+              <div 
+                className="sidebar__user-email" 
+                title={user?.email}
+                aria-label={`Email: ${user?.email}`}
+              >
                 {user?.email}
               </div>
             </div>
+            
             <button 
               onClick={handleLogout} 
               className="sidebar__logout-button"
               aria-label="Выйти из аккаунта"
+              type="button"
             >
-              <FiLogOut className="sidebar__logout-icon" />
-              <span>Выйти</span>
+              <FiLogOut className="sidebar__logout-icon" aria-hidden="true" />
+              <span className="sidebar__logout-label">Выйти</span>
             </button>
-          </div>
+          </footer>
         </div>
       </nav>
     </>
   );
-};
+});
+
+Sidebar.displayName = 'Sidebar';
 
 export default Sidebar;
