@@ -119,7 +119,7 @@ const Settings: React.FC = () => {
           {/* Заголовок страницы */}
           <header className="settings-header">
             <h1 className="settings-title">⚙️ Настройки</h1>
-            <p className="settings-subtitle">Настройки профиля</p>
+            {/* <p className="settings-subtitle">Настройки профиля</p> */}
           </header>
 
           {/* Секция: Профиль */}

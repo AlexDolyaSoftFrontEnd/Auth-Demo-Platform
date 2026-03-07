@@ -1,181 +1,189 @@
-/* ========== Базовые переменные ========== */
-:root {
-  --sidebar-width: 240px;
-  --sidebar-bg: #ffffff;
-  --sidebar-border: #e0e0e0;
-  --sidebar-text: #1d1d1f;
-  --sidebar-text-secondary: #6e6e73;
-  --sidebar-primary: #0066b3;
-  --sidebar-primary-light: #e3f2fd;
-  --sidebar-danger: #dc3545;
-  --sidebar-danger-light: #fff5f5;
-  --sidebar-hover: #f5f5f7;
-  --sidebar-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-  --transition-fast: 0.15s ease;
-  --transition-normal: 0.25s ease;
-  --burger-size: 44px;
-  --burger-line-height: 2px;
-  --burger-line-width: 20px;
-}
+/* src/components/Sidebar/Sidebar.css */
+/* ============================================
+   SIDEBAR — APPLE DESIGN STYLE (БЕЗ ПЕРЕМЕННЫХ)
+   ============================================
+   
+   Особенности дизайна:
+   - Минимализм в духе Apple: много воздуха, мягкие тени, плавные анимации
+   - Адаптивность: от мобильных (320px) до ультра-широких экранов (2560px+)
+   - Доступность: поддержка prefers-reduced-motion, prefers-contrast, focus-visible
+   - Тёмная тема: автоматическое переключение через prefers-color-scheme
+   - Логотип удалён для чистого минималистичного вида
+*/
 
-/* ========== Блок: sidebar ========== */
+/* ============================================
+   БАЗОВЫЕ СТИЛИ САЙДБАРА
+   ============================================ */
+
+/* Контейнер сайдбара: фиксированное позиционирование слева */
 .sidebar {
   position: fixed;
   top: 0;
   left: 0;
-  width: var(--sidebar-width);
-  height: 100vh;
-  background: var(--sidebar-bg);
-  border-right: 1px solid var(--sidebar-border);
-  z-index: 1000;
+  width: 280px; /* Фиксированная ширина для десктопа */
+  height: 100vh; /* На всю высоту окна */
+  background: #ffffff; /* Белый фон в стиле Apple */
+  border-right: 1px solid rgba(0, 0, 0, 0.08); /* Тонкая разделительная линия */
+  z-index: 1000; /* Поверх контента, но под модальными окнами */
   display: flex;
-  flex-direction: column;
-  box-shadow: var(--sidebar-shadow);
-  transition: transform var(--transition-normal), box-shadow var(--transition-fast);
-  will-change: transform;
+  flex-direction: column; /* Вертикальное расположение элементов */
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06); /* Мягкая тень для глубины */
+  /* Плавный переход для трансформации (выезд меню) и тени */
+  transition: transform 0.4s cubic-bezier(0.25, 0.1, 0.25, 1), box-shadow 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
+  will-change: transform; /* Подсказка браузеру для оптимизации анимации */
 }
 
+/* Скрытое состояние: сдвиг за левый край экрана */
 .sidebar--hidden {
   transform: translateX(-100%);
 }
 
+/* Внутренний контейнер: отступы и флекс-вертикаль */
 .sidebar__container {
   display: flex;
   flex-direction: column;
   height: 100%;
-  padding: 16px;
+  padding: 20px 16px; /* Внутренние отступы */
 }
 
-/* ========== Header ========== */
-.sidebar__header {
-  padding: 8px 0 24px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-bottom: 1px solid transparent;
-  transition: border-color var(--transition-fast);
-}
+/* ============================================
+   НАВИГАЦИОННОЕ МЕНЮ
+   ============================================ */
 
-.sidebar__logo {
-  height: 40px;
-  width: auto;
-  object-fit: contain;
-  transition: transform var(--transition-fast);
-}
-
-.sidebar__logo:hover {
-  transform: scale(1.05);
-}
-
-/* ========== Menu ========== */
 .sidebar__menu {
-  flex: 1;
-  list-style: none;
+  flex: 1; /* Занимает всё доступное пространство между header и footer */
+  list-style: none; /* Убираем стандартные маркеры списка */
   padding: 0;
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  overflow-y: auto;
-  scrollbar-gutter: stable;
+  gap: 4px; /* Расстояние между пунктами меню */
+  overflow-y: auto; /* Вертикальный скролл если пунктов много */
+  scrollbar-gutter: stable; /* Предотвращает "прыжок" контента при появлении скролла */
 }
 
+/* Кастомный скроллбар в стиле Apple (Webkit) */
 .sidebar__menu::-webkit-scrollbar {
-  width: 4px;
+  width: 4px; /* Очень тонкий скроллбар */
 }
 
 .sidebar__menu::-webkit-scrollbar-track {
-  background: transparent;
+  background: transparent; /* Прозрачный трек */
 }
 
 .sidebar__menu::-webkit-scrollbar-thumb {
-  background: #d2d2d7;
-  border-radius: 2px;
+  background: #d2d2d7; /* Цвет ползунка */
+  border-radius: 2px; /* Скругление */
 }
 
+/* Элемент списка: сброс стандартных стилей */
 .sidebar__menu-item {
   list-style: none;
 }
 
+/* Ссылка пункта меню: основная интерактивная область */
 .sidebar__link {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 12px 16px;
-  color: var(--sidebar-text-secondary);
-  text-decoration: none;
-  border-radius: 10px;
-  transition: all var(--transition-fast);
+  gap: 12px; /* Расстояние между иконкой и текстом */
+  padding: 12px 16px; /* Внутренние отступы для удобного клика */
+  color: #86868b; /* Вторичный цвет текста (неактивное состояние) */
+  text-decoration: none; /* Убираем подчёркивание ссылок */
+  border-radius: 12px; /* Скругление в стиле Apple */
+  transition: all 0.2s cubic-bezier(0.25, 0.1, 0.25, 1); /* Плавная анимация всех свойств */
   font-weight: 400;
   font-size: 15px;
-  position: relative;
-  overflow: hidden;
-  user-select: none;
-  -webkit-tap-highlight-color: transparent;
+  position: relative; /* Для позиционирования псевдоэлемента ::before */
+  overflow: hidden; /* Обрезка контента при анимациях */
+  user-select: none; /* Запрет выделения текста */
+  -webkit-tap-highlight-color: transparent; /* Убирает синий фон при тапе на мобильных */
+  min-height: 44px; /* Минимальная высота цели нажатия (доступность) */
 }
 
+/* Индикатор активного пункта: вертикальная полоска слева */
 .sidebar__link::before {
   content: '';
   position: absolute;
-  left: 0;
+  left: 4px;
   top: 50%;
-  transform: translateY(-50%) scaleX(0);
-  width: 4px;
-  height: 70%;
-  background: var(--sidebar-primary);
-  border-radius: 0 4px 4px 0;
-  transition: transform var(--transition-fast);
+  transform: translateY(-50%) scaleX(0); /* Скрыто по умолчанию (масштаб 0 по горизонтали) */
+  width: 3px;
+  height: 60%;
+  background: #0071e3; /* Акцентный синий цвет Apple */
+  border-radius: 0 2px 2px 0;
+  transition: transform 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 
+/* Состояние при наведении: подсветка фона и текста */
 .sidebar__link:hover {
-  background-color: var(--sidebar-hover);
-  color: var(--sidebar-primary);
-  transform: translateX(2px);
+  background-color: rgba(0, 0, 0, 0.04); /* Лёгкий серый фон */
+  color: #0071e3; /* Синий цвет текста */
 }
 
+/* Показываем индикатор при наведении */
 .sidebar__link:hover::before {
-  transform: translateY(-50%) scaleX(1);
+  transform: translateY(-50%) scaleX(1); /* Масштаб 1 — полоска видна */
 }
 
+/* Активный пункт (текущая страница) */
 .sidebar__link.active {
-  background-color: var(--sidebar-primary-light);
-  color: var(--sidebar-primary);
-  font-weight: 500;
+  background-color: rgba(0, 113, 227, 0.1); /* Полупрозрачный синий фон */
+  color: #0071e3;
+  font-weight: 500; /* Чуть жирнее для выделения */
 }
 
+/* Индикатор активного пункта всегда виден */
 .sidebar__link.active::before {
   transform: translateY(-50%) scaleX(1);
 }
 
+/* Иконка пункта меню */
 .sidebar__icon {
-  font-size: 20px;
-  flex-shrink: 0;
-  transition: transform var(--transition-fast);
+  font-size: 19px;
+  flex-shrink: 0; /* Запрет сжатия иконки при нехватке места */
+  transition: transform 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px; /* Фиксированная ширина для выравнивания */
 }
 
+/* Лёгкое увеличение иконки при наведении на ссылку */
 .sidebar__link:hover .sidebar__icon {
-  transform: scale(1.1);
+  transform: scale(1.05);
 }
 
-/* ========== Footer ========== */
+/* Текст ссылки: занимает оставшееся место, обрезается с троеточием */
+.sidebar__label {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ============================================
+   FOOTER: ПРОФИЛЬ И КНОПКА ВЫХОДА
+   ============================================ */
+
 .sidebar__footer {
-  padding-top: 16px;
-  border-top: 1px solid var(--sidebar-border);
-  margin-top: auto;
+  padding-top: 20px; /* Отступ сверху для визуального разделения */
+  border-top: 1px solid rgba(0, 0, 0, 0.08); /* Разделительная линия */
+  margin-top: auto; /* Прижимает footer к низу контейнера */
 }
 
 .sidebar__user-info {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 8px 0 16px;
+  padding: 4px 0 16px; /* Отступы внутри блока информации */
 }
 
+/* Аватар пользователя: круг с градиентом */
 .sidebar__avatar {
   width: 36px;
   height: 36px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--sidebar-primary), #009fe3);
+  border-radius: 50%; /* Круглая форма */
+  background: linear-gradient(135deg, #0071e3, #009fe3); /* Градиент в синих тонах */
   color: #fff;
   display: flex;
   align-items: center;
@@ -183,216 +191,238 @@
   font-weight: 600;
   font-size: 14px;
   flex-shrink: 0;
-  box-shadow: 0 2px 8px rgba(0, 102, 179, 0.3);
-  transition: transform var(--transition-fast);
+  box-shadow: 0 2px 8px rgba(0, 113, 227, 0.25); /* Тень для объёма */
+  transition: transform 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 
 .sidebar__avatar:hover {
-  transform: scale(1.05);
+  transform: scale(1.05); /* Лёгкое увеличение при наведении */
 }
 
+/* Email пользователя: обрезается с троеточием если не влезает */
 .sidebar__user-email {
   font-size: 14px;
-  color: var(--sidebar-text-secondary);
+  color: #86868b;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   max-width: 140px;
+  font-weight: 400;
 }
 
-/* ========== Кнопка выхода (улучшенная версия) ========== */
+/* ============================================
+   КНОПКА ВЫХОДА (Apple Style)
+   ============================================ */
+
 .sidebar__logout-button {
   display: flex;
   align-items: center;
-  gap: 8px;
-  width: 100%;
-  padding: 10px 14px;
-  background: none;
-  border: 1px solid var(--sidebar-danger-light);
-  color: var(--sidebar-danger);
+  gap: 10px;
+  width: 100%; /* На всю ширину контейнера */
+  padding: 12px 16px;
+  background: transparent; /* Прозрачный фон по умолчанию */
+  border: none; /* Без стандартной границы кнопки */
+  color: #ff3b30; /* Красный цвет для деструктивного действия */
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
-  border-radius: 8px;
-  transition: all var(--transition-fast);
+  border-radius: 12px; /* Скругление в стиле Apple */
+  transition: all 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
   text-align: left;
-  position: relative;
+  position: relative; /* Для позиционирования псевдоэлемента ::before */
   overflow: hidden;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
+  min-height: 44px; /* Минимальная высота для доступности */
 }
 
+/* Фоновая подсветка при наведении (псевдоэлемент) */
 .sidebar__logout-button::before {
   content: '';
   position: absolute;
-  inset: 0;
-  background: var(--sidebar-danger-light);
-  opacity: 0;
-  transition: opacity var(--transition-fast);
-  border-radius: 8px;
+  inset: 0; /* Растягивает на всю область кнопки */
+  background: rgba(255, 59, 48, 0.1); /* Полупрозрачный красный */
+  opacity: 0; /* Скрыто по умолчанию */
+  transition: opacity 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
+  border-radius: 12px;
 }
 
-/* Улучшена читаемость текста при наведении */
+/* Состояние при наведении */
 .sidebar__logout-button:hover {
-  color: #b91c1c; /* Более тёмный красный для контраста */
-  transform: translateX(-2px);
-  border-color: var(--sidebar-danger);
-  box-shadow: 0 2px 8px rgba(220, 53, 69, 0.2);
+  color: #cc0000; /* Более тёмный красный для контраста */
 }
 
+/* Показываем фоновую подсветку при наведении */
 .sidebar__logout-button:hover::before {
-  opacity: 0.15; /* Полупрозрачный фон */
+  opacity: 1;
 }
 
-/* Активное состояние */
+/* Эффект нажатия: лёгкое уменьшение */
 .sidebar__logout-button:active {
   transform: scale(0.98);
-  box-shadow: 0 1px 4px rgba(220, 53, 69, 0.15);
 }
 
-/* Фокус для доступности */
+/* Фокус для клавиатурной навигации (доступность) */
 .sidebar__logout-button:focus-visible {
-  outline: 2px solid var(--sidebar-danger);
+  outline: 2px solid #ff3b30;
   outline-offset: 2px;
-  z-index: 1;
 }
 
+/* Иконка кнопки выхода */
 .sidebar__logout-icon {
   font-size: 18px;
-  transition: transform var(--transition-fast);
+  transition: transform 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
   flex-shrink: 0;
 }
 
+/* Анимация иконки при наведении: сдвиг влево */
 .sidebar__logout-button:hover .sidebar__logout-icon {
   transform: translateX(-2px);
-  color: #b91c1c;
 }
 
-/* ========== Overlay для мобильных ========== */
+/* ============================================
+   OVERLAY ДЛЯ МОБИЛЬНЫХ (ЗАТЕМНЕНИЕ ФОНА)
+   ============================================ */
+
 .sidebar-overlay {
-  display: none;
+  display: none; /* Скрыт по умолчанию, показывается через модификатор */
   position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.4);
-  z-index: 999;
+  inset: 0; /* Растягивает на всё окно: top:0, right:0, bottom:0, left:0 */
+  background: rgba(0, 0, 0, 0.4); /* Полупрозрачный чёрный для затемнения */
+  z-index: 999; /* Под сайдбаром (1000), но над контентом */
   opacity: 0;
   visibility: hidden;
-  transition: opacity var(--transition-normal), visibility var(--transition-normal);
-  backdrop-filter: blur(2px);
+  transition: opacity 0.4s cubic-bezier(0.25, 0.1, 0.25, 1), visibility 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+  /* Размытие фона в стиле Apple (эффект матового стекла) */
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
   -webkit-tap-highlight-color: transparent;
 }
 
+/* Видимое состояние оверлея */
 .sidebar-overlay--visible {
   display: block;
   opacity: 1;
   visibility: visible;
 }
 
-/* ========== Кнопка гамбургер (улучшенная) ========== */
+/* ============================================
+   КНОПКА ГАМБУРГЕР — APPLE STYLE (МОБИЛЬНАЯ)
+   ============================================ */
+
 .sidebar-toggle {
-  display: none;
+  display: none; /* Скрыта на десктопе, показывается через медиа-запрос */
   position: fixed;
   top: 16px;
   left: 16px;
-  z-index: 1001;
-  width: var(--burger-size);
-  height: var(--burger-size);
-  border-radius: 14px;
-  background: var(--sidebar-bg);
-  border: 1px solid var(--sidebar-border);
-  box-shadow: var(--sidebar-shadow);
+  z-index: 1001; /* Поверх всего, включая сайдбар */
+  width: 44px; /* Минимальный размер цели нажатия по гайдлайнам Apple */
+  height: 44px;
+  border-radius: 14px; /* Скругление в стиле iOS */
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
   cursor: pointer;
   align-items: center;
   justify-content: center;
-  transition: all var(--transition-fast);
+  transition: all 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
   padding: 0;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
+  overflow: hidden;
 }
 
+/* Состояние при наведении */
 .sidebar-toggle:hover {
-  background: var(--sidebar-hover);
-  border-color: #aeaeb2;
-  transform: scale(1.05);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  background: #f5f5f7; /* Светло-серый фон */
+  border-color: rgba(0, 0, 0, 0.12);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  transform: scale(1.02); /* Лёгкое увеличение */
 }
 
+/* Состояние при нажатии */
 .sidebar-toggle:active {
-  transform: scale(0.98);
-  transition-duration: 0.05s;
+  transform: scale(0.96); /* Эффект "вдавливания" */
+  transition-duration: 0.1s; /* Более быстрая анимация для тактильного отклика */
 }
 
-/* Контейнер для линий бургера */
-.sidebar-toggle__box {
+/* Фокус для клавиатурной навигации */
+.sidebar-toggle:focus-visible {
+  outline: 2px solid #0071e3;
+  outline-offset: 2px;
+}
+
+/* Контейнер для трёх линий гамбургера */
+.sidebar-toggle__icon {
   position: relative;
-  width: var(--burger-line-width);
-  height: 16px;
+  width: 20px; /* Ширина линий */
+  height: 10px; /* Общая высота: 3 линии по 2px + 2 отступа по 2px */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  transition: opacity var(--transition-fast);
+  align-items: center;
 }
 
-/* Линии бургера */
+/* Общие стили для каждой линии гамбургера */
 .sidebar-toggle__line {
+  position: relative;
   width: 100%;
-  height: var(--burger-line-height);
-  background: var(--sidebar-text);
-  border-radius: 2px;
-  transition: all var(--transition-normal);
-  transform-origin: center;
+  height: 2px; /* Толщина линии */
+  background: #1d1d1f; /* Цвет текста */
+  border-radius: 1px; /* Лёгкое скругление */
+  transition: all 0.4s cubic-bezier(0.25, 0.1, 0.25, 1); /* Плавная анимация трансформации */
+  transform-origin: center; /* Точка вращения — центр линии */
+  will-change: transform, opacity; /* Оптимизация анимации */
 }
 
-.sidebar-toggle__line--middle {
-  opacity: 1;
-  transform: scaleX(1);
-}
+/* ============================================
+   АНИМАЦИЯ ПРЕВРАЩЕНИЯ В КРЕСТИК
+   ============================================
+   Логика:
+   - Верхняя линия: сдвиг вниз + поворот на 45°
+   - Средняя линия: исчезновение (opacity + scaleX)
+   - Нижняя линия: сдвиг вверх + поворот на -45°
+   Результат: плавное превращение ≡ в ✕
+*/
 
-/* Анимация превращения в крестик */
-.sidebar-toggle--active .sidebar-toggle__box {
-  opacity: 0;
-}
-
+/* Верхняя линия в активном состоянии */
 .sidebar-toggle--active .sidebar-toggle__line--top {
-  transform: translateY(7px) rotate(45deg);
-  opacity: 0;
+  transform: translateY(7px) rotate(45deg); /* Сдвиг на высоту средней линии + поворот */
 }
 
+/* Средняя линия: скрываем */
 .sidebar-toggle--active .sidebar-toggle__line--middle {
-  transform: scaleX(0);
   opacity: 0;
+  transform: scaleX(0); /* Сжатие по горизонтали для плавного исчезновения */
 }
 
+/* Нижняя линия в активном состоянии */
 .sidebar-toggle--active .sidebar-toggle__line--bottom {
-  transform: translateY(-7px) rotate(-45deg);
-  opacity: 0;
+  transform: translateY(-7px) rotate(-45deg); /* Сдвиг вверх + поворот в обратную сторону */
 }
 
-/* Иконка крестика (появляется при активном состоянии) */
-.sidebar-toggle__close-icon {
-  position: absolute;
-  width: 24px;
-  height: 24px;
-  color: var(--sidebar-text);
-  opacity: 0;
-  transform: scale(0.8) rotate(-90deg);
-  transition: all var(--transition-normal);
+/* Дополнительная анимация мерцания линий при трансформации */
+@keyframes lineFade {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
 }
 
-.sidebar-toggle--active .sidebar-toggle__close-icon {
-  opacity: 1;
-  transform: scale(1) rotate(0);
+.sidebar-toggle--active .sidebar-toggle__line {
+  animation: lineFade 0.3s ease-in-out;
 }
 
-/* ========== Адаптивность: Планшеты (768px - 1024px) ========== */
+/* ============================================
+   АДАПТИВНОСТЬ: ПЛАНШЕТЫ (769px - 1024px)
+   ============================================ */
 @media (max-width: 1024px) {
-  :root {
-    --sidebar-width: 220px;
+  .sidebar {
+    width: 260px; /* Чуть уже для планшетов */
   }
   
   .sidebar__link {
-    padding: 10px 14px;
-    font-size: 14px;
+    padding: 10px 14px; /* Меньше отступы */
+    font-size: 14px; /* Чуть меньше шрифт */
+    min-height: 42px;
   }
   
   .sidebar__icon {
@@ -400,112 +430,225 @@
   }
   
   .sidebar__user-email {
-    max-width: 120px;
+    max-width: 110px; /* Ограничение ширины для маленького экрана */
     font-size: 13px;
   }
 }
 
-/* ========== Адаптивность: Мобильные (< 768px) ========== */
+/* ============================================
+   АДАПТИВНОСТЬ: МОБИЛЬНЫЕ (< 768px)
+   ============================================ */
 @media (max-width: 768px) {
+  /* Показываем кнопку гамбургер */
   .sidebar-toggle {
     display: flex;
   }
   
+  /* Сайдбар скрыт за левым краем по умолчанию */
   .sidebar {
     transform: translateX(-100%);
     width: 280px;
-    max-width: 85vw;
-    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.2);
+    max-width: 85vw; /* Не шире 85% ширины экрана */
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12); /* Более выраженная тень для модального окна */
+    border-right: none; /* Убираем границу, т.к. сайдбар теперь "парит" */
   }
   
+  /* Видимое состояние: выезжает справа */
   .sidebar--visible {
     transform: translateX(0);
   }
   
+  /* Показываем оверлей */
   .sidebar-overlay--visible {
     display: block;
   }
   
+  /* Контент страницы: убираем отступ слева, т.к. сайдбар больше не занимает место */
   .page-content {
     margin-left: 0 !important;
-    padding: 72px 16px 16px;
+    padding: 72px 16px 16px; /* Отступ сверху под кнопку гамбургер */
   }
   
+  /* Увеличиваем цели нажатия для тач-интерфейса */
   .sidebar__link {
     padding: 14px 18px;
     font-size: 16px;
-    min-height: 48px;
+    min-height: 48px; /* Минимальная высота по гайдлайнам доступности */
+    border-radius: 14px;
   }
   
   .sidebar__icon {
-    font-size: 22px;
+    font-size: 21px;
+    width: 26px;
   }
   
   .sidebar__logout-button {
-    padding: 12px 16px;
+    padding: 14px 18px;
     font-size: 15px;
     min-height: 48px;
+    border-radius: 14px;
   }
   
+  /* Скрываем email на мобильных — экономим место */
   .sidebar__user-email {
     display: none;
   }
   
+  /* Увеличиваем аватар для лучшего восприятия */
   .sidebar__avatar {
     width: 40px;
     height: 40px;
     font-size: 16px;
   }
   
+  /* Анимация появления сайдбара: плавный выезд */
   @keyframes slideInSidebar {
-    from {
-      transform: translateX(-100%);
-      opacity: 0;
-    }
-    to {
-      transform: translateX(0);
-      opacity: 1;
-    }
+    from { transform: translateX(-100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
   }
   
   .sidebar--visible {
-    animation: slideInSidebar var(--transition-normal) forwards;
+    animation: slideInSidebar 0.4s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
   }
 }
 
-/* ========== Очень маленькие экраны (< 480px) ========== */
+/* ============================================
+   АДАПТИВНОСТЬ: ОЧЕНЬ МАЛЫЕ ЭКРАНЫ (< 480px)
+   ============================================ */
 @media (max-width: 480px) {
-  :root {
-    --sidebar-width: 100%;
-  }
-  
   .sidebar {
-    width: 100%;
-    max-width: 320px;
-  }
-  
-  .sidebar__header {
-    padding: 12px 0 20px;
-  }
-  
-  .sidebar__logo {
-    height: 36px;
+    width: 100%; /* На всю ширину для очень маленьких экранов */
+    max-width: 320px; /* Но не шире 320px для удобства */
+    border-radius: 0 18px 18px 0; /* Скругление правых углов */
   }
   
   .sidebar__footer {
-    padding-top: 12px;
+    padding-top: 16px;
   }
   
   .sidebar-toggle {
     top: 12px;
     left: 12px;
-    width: 40px;
+    width: 40px; /* Чуть меньше кнопка */
     height: 40px;
     border-radius: 12px;
   }
+  
+  .sidebar__link {
+    font-size: 15px;
+    padding: 12px 16px;
+  }
 }
 
-/* ========== Доступность ========== */
+/* ============================================
+   АДАПТИВНОСТЬ: БОЛЬШИЕ ЭКРАНЫ (1440px+)
+   ============================================ */
+@media (min-width: 1440px) {
+  .sidebar {
+    width: 300px; /* Шире для больших мониторов */
+  }
+  
+  .sidebar__container {
+    padding: 24px 20px; /* Больше воздуха внутри */
+  }
+  
+  .sidebar__link {
+    padding: 14px 18px;
+    font-size: 16px;
+  }
+  
+  .sidebar__icon {
+    font-size: 20px;
+  }
+}
+
+/* ============================================
+   ТЁМНАЯ ТЕМА (prefers-color-scheme: dark)
+   ============================================
+   Автоматическое переключение при включении тёмной темы в ОС
+   Все цвета инвертированы с сохранением контраста и акцентов
+*/
+@media (prefers-color-scheme: dark) {
+  .sidebar {
+    background: #1c1c1e; /* Тёмно-серый фон вместо белого */
+    border-right-color: rgba(255, 255, 255, 0.1); /* Светлая граница */
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3); /* Более выраженная тень для глубины */
+  }
+  
+  .sidebar__link {
+    color: #a1a1a6; /* Светло-серый текст для неактивных ссылок */
+  }
+  
+  .sidebar__link::before {
+    background: #0a84ff; /* Более яркий синий для тёмной темы */
+  }
+  
+  .sidebar__link:hover {
+    background-color: rgba(255, 255, 255, 0.08); /* Полупрозрачный белый фон */
+    color: #0a84ff;
+  }
+  
+  .sidebar__link.active {
+    background-color: rgba(10, 132, 255, 0.15);
+    color: #0a84ff;
+  }
+  
+  .sidebar__avatar {
+    background: linear-gradient(135deg, #0a84ff, #0071e3);
+    box-shadow: 0 2px 8px rgba(10, 132, 255, 0.3);
+  }
+  
+  .sidebar__user-email {
+    color: #a1a1a6;
+  }
+  
+  .sidebar__logout-button {
+    color: #ff453a; /* Чуть ярче красный для контраста на тёмном */
+  }
+  
+  .sidebar__logout-button::before {
+    background: rgba(255, 69, 58, 0.15);
+  }
+  
+  .sidebar__logout-button:hover {
+    color: #ff6961;
+  }
+  
+  .sidebar__logout-button:focus-visible {
+    outline-color: #ff453a;
+  }
+  
+  .sidebar-toggle {
+    background: #2c2c2e;
+    border-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  }
+  
+  .sidebar-toggle:hover {
+    background: #3a3a3c;
+    border-color: rgba(255, 255, 255, 0.15);
+  }
+  
+  .sidebar-toggle__line {
+    background: #f5f5f7; /* Светлые линии на тёмном фоне */
+  }
+  
+  /* Адаптация скроллбара для тёмной темы */
+  .sidebar__menu::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+  }
+  
+  .sidebar__menu::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+  }
+}
+
+/* ============================================
+   ДОСТУПНОСТЬ: УМЕНЬШЕННАЯ АНИМАЦИЯ
+   ============================================
+   Для пользователей с вестибулярными нарушениями
+   Отключаем все анимации и переходы
+*/
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -515,36 +658,35 @@
     transition-duration: 0.01ms !important;
   }
   
-  .sidebar-toggle__line,
-  .sidebar-toggle__close-icon {
+  .sidebar-toggle__line {
     transition: none !important;
   }
   
   .sidebar__link,
-  .sidebar__logout-button {
+  .sidebar__logout-button,
+  .sidebar-toggle {
     transition: none;
   }
   
-  .sidebar__logout-button:hover {
-    transform: none;
+  .sidebar--visible {
+    animation: none;
+    transform: translateX(0) !important;
   }
 }
 
-.sidebar__link:focus-visible,
-.sidebar__logout-button:focus-visible,
-.sidebar-toggle:focus-visible {
-  outline: 2px solid var(--sidebar-primary);
-  outline-offset: 2px;
-  z-index: 1;
-}
-
+/* ============================================
+   ДОСТУПНОСТЬ: ВЫСОКИЙ КОНТРАСТ
+   ============================================
+   Для пользователей с нарушениями зрения
+   Усиливаем границы и контраст элементов
+*/
 @media (prefers-contrast: high) {
   .sidebar {
-    border-right-width: 2px;
+    border-right-width: 2px; /* Утолщаем границу сайдбара */
   }
   
   .sidebar__link.active {
-    border: 2px solid var(--sidebar-primary);
+    border: 2px solid #0071e3; /* Явная граница для активного пункта */
   }
   
   .sidebar-toggle {
@@ -552,11 +694,65 @@
   }
   
   .sidebar__logout-button {
-    border-width: 2px;
+    border: 2px solid #ff3b30;
+    background: transparent;
   }
   
-  .sidebar__logout-button:hover {
-    background-color: rgba(220, 53, 69, 0.1);
-    color: #dc2626 !important;
+  .sidebar-toggle__line {
+    height: 3px; /* Утолщаем линии гамбургера для лучшей видимости */
   }
+}
+
+/* ============================================
+   ФОКУС ДЛЯ КЛАВИАТУРНОЙ НАВИГАЦИИ
+   ============================================
+   Видимый индикатор фокуса для пользователей, 
+   которые навигаруют с клавиатуры (Tab)
+*/
+.sidebar__link:focus-visible,
+.sidebar__logout-button:focus-visible,
+.sidebar-toggle:focus-visible {
+  outline: 2px solid #0071e3;
+  outline-offset: 2px;
+  z-index: 1; /* Поверх других элементов */
+}
+
+/* ============================================
+   АНИМАЦИЯ ПОЯВЛЕНИЯ ПУНКТОВ МЕНЮ
+   ============================================
+   Каскадное появление ссылок при загрузке
+   Создаёт ощущение премиальности и плавности
+*/
+.sidebar__link {
+  animation: fadeInUp 0.4s cubic-bezier(0.25, 0.1, 0.25, 1) backwards;
+}
+
+/* Задержка для каждого пункта: создаёт эффект "волны" */
+.sidebar__link:nth-child(1) { animation-delay: 0.05s; }
+.sidebar__link:nth-child(2) { animation-delay: 0.1s; }
+.sidebar__link:nth-child(3) { animation-delay: 0.15s; }
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================================
+   КАСТОМНЫЙ СКРОЛЛБАР
+   ============================================
+   Минималистичный скроллбар в стиле Apple
+   Не отвлекает от контента, но функционален
+*/
+.sidebar__menu {
+  scrollbar-width: thin; /* Для Firefox */
+  scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+}
+
+.sidebar__menu::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 2px;
+}
+
+.sidebar__menu::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.3); /* Чуть темнее при наведении */
 }
