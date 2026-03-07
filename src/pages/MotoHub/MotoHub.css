@@ -1,5 +1,6 @@
 /* ============================================
    MOTOHUB — APPLE DESIGN STYLE
+   FULLY RESPONSIVE FOR ALL DEVICES
    ============================================ */
 
 /* ===== Сброс стилей и базовые настройки ===== */
@@ -13,6 +14,7 @@ html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-size: 16px;
 }
 
 body {
@@ -22,6 +24,8 @@ body {
   line-height: 1.47059;
   letter-spacing: -0.022em;
   font-weight: 400;
+  min-width: 320px;
+  overflow-x: hidden;
 }
 
 a {
@@ -35,6 +39,8 @@ button {
   cursor: pointer;
   border: none;
   background: none;
+  min-height: 44px;
+  min-width: 44px;
 }
 
 img {
@@ -51,16 +57,18 @@ img {
   display: flex;
   min-height: 100vh;
   background-color: #f5f5f7;
+  width: 100%;
 }
 
 /* Основной контент с отступом для сайдбара */
 .page-content {
   flex: 1;
   padding: 60px 48px;
-  margin-left: 240px;
+  margin-left: 280px;
   width: calc(100% - 280px);
   transition: margin-left 0.4s cubic-bezier(0.25, 0.1, 0.25, 1),
-              width 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+              width 0.4s cubic-bezier(0.25, 0.1, 0.25, 1),
+              padding 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 
 /* ============================================
@@ -83,6 +91,7 @@ img {
   border-radius: 980px;
   background-color: rgba(134, 134, 139, 0.1);
   transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+  min-height: 32px;
 }
 
 .meta-info:hover {
@@ -103,6 +112,7 @@ img {
   color: #1d1d1f;
   margin-top: 16px;
   margin-bottom: 8px;
+  word-wrap: break-word;
 }
 
 /* ============================================
@@ -123,6 +133,7 @@ img {
   overflow-x: auto;
   scrollbar-width: none;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  -webkit-overflow-scrolling: touch;
 }
 
 .tabs-nav::-webkit-scrollbar {
@@ -142,6 +153,9 @@ img {
   white-space: nowrap;
   border-radius: 10px;
   letter-spacing: -0.01em;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
 }
 
 .tab-btn:hover {
@@ -151,6 +165,10 @@ img {
 
 .tab-btn:focus {
   outline: none;
+  box-shadow: 0 0 0 2px #0071e3;
+}
+
+.tab-btn:focus-visible {
   box-shadow: 0 0 0 2px #0071e3;
 }
 
@@ -167,6 +185,7 @@ img {
   font-size: 17px;
   vertical-align: middle;
   margin-right: 6px;
+  flex-shrink: 0;
 }
 
 .icon-star {
@@ -187,6 +206,8 @@ img {
 
 .content-container {
   max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
   animation: contentFadeIn 0.6s cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 
@@ -209,6 +230,7 @@ img {
   display: flex;
   flex-direction: column;
   gap: 20px;
+  width: 100%;
 }
 
 /* ============================================
@@ -224,6 +246,7 @@ img {
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
   position: relative;
   overflow: hidden;
+  width: 100%;
 }
 
 .motorcycle-card::before {
@@ -255,6 +278,7 @@ img {
   justify-content: space-between;
   align-items: flex-start;
   margin-bottom: 12px;
+  gap: 16px;
 }
 
 .motorcycle-card__title {
@@ -263,6 +287,7 @@ img {
   color: #1d1d1f;
   line-height: 1.3;
   letter-spacing: -0.01em;
+  word-wrap: break-word;
 }
 
 .motorcycle-card__brand {
@@ -287,12 +312,14 @@ img {
   font-size: 14px;
   font-weight: 500;
   color: #86868b;
+  white-space: nowrap;
 }
 
 .detail-icon {
   color: #0071e3;
   font-size: 16px;
   opacity: 0.9;
+  flex-shrink: 0;
 }
 
 .mileage {
@@ -310,6 +337,8 @@ img {
   text-transform: capitalize;
   letter-spacing: 0.02em;
   box-shadow: 0 1px 4px rgba(0, 113, 227, 0.3);
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 /* ============================================
@@ -322,12 +351,14 @@ img {
   color: #1d1d1f;
   margin-bottom: 32px;
   letter-spacing: -0.01em;
+  word-wrap: break-word;
 }
 
 .recommendations-container,
 .favorites-container,
 .hidden-bikes-container {
   padding: 12px;
+  width: 100%;
 }
 
 /* ============================================
@@ -345,6 +376,7 @@ img {
   border-radius: 18px;
   border: none;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  width: 100%;
 }
 
 .empty-state__icon {
@@ -359,147 +391,26 @@ img {
   font-weight: 500;
   color: #86868b;
   letter-spacing: -0.01em;
+  max-width: 400px;
 }
 
 /* ============================================
-   АДАПТИВНОСТЬ ДЛЯ ПЛАНШЕТОВ (1024px)
+   АДАПТИВНОСТЬ: ОЧЕНЬ МАЛЫЕ ТЕЛЕФОНЫ (< 375px)
    ============================================ */
 
-@media (max-width: 1024px) {
+@media (max-width: 374px) {
+  html {
+    font-size: 14px;
+  }
+
   .page-content {
-    padding: 48px 32px;
-    margin-left: 240px;
-    width: calc(100% - 240px);
-  }
-
-  .page-title {
-    font-size: 44px;
-  }
-
-  .moto-header {
-    margin-bottom: 40px;
-  }
-
-  .tabs-nav {
-    margin-bottom: 40px;
-  }
-
-  .tab-btn {
-    padding: 9px 18px;
-    font-size: 13px;
-  }
-
-  .motorcycle-card {
-    padding: 28px;
-  }
-
-  .motorcycle-card__title {
-    font-size: 20px;
-  }
-
-  .section-title {
-    font-size: 24px;
-  }
-}
-
-/* ============================================
-   АДАПТИВНОСТЬ ДЛЯ ПЛАНШЕТОВ (768px)
-   ============================================ */
-
-@media (max-width: 768px) {
-  .page-content {
-    padding: 32px 24px;
+    padding: 32px 16px;
     margin-left: 0;
     width: 100%;
   }
 
   .page-title {
-    font-size: 36px;
-  }
-
-  .moto-header {
-    margin-bottom: 32px;
-  }
-
-  .meta-info {
-    font-size: 11px;
-    padding: 5px 10px;
-  }
-
-  .tabs-nav {
-    gap: 8px;
-    padding: 5px;
-    margin-bottom: 32px;
-    border-radius: 10px;
-  }
-
-  .tab-btn {
-    padding: 8px 16px;
-    font-size: 13px;
-    border-radius: 8px;
-  }
-
-  .icon-star,
-  .icon-heart,
-  .icon-hide {
-    font-size: 15px;
-    margin-right: 4px;
-  }
-
-  .motorcycle-card {
-    padding: 24px;
-    border-radius: 16px;
-  }
-
-  .motorcycle-card__title {
-    font-size: 19px;
-  }
-
-  .motorcycle-card__brand {
-    font-size: 14px;
-    margin-bottom: 16px;
-  }
-
-  .motorcycle-card__details {
-    gap: 24px;
-  }
-
-  .motorcycle-card__top {
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .section-title {
-    font-size: 22px;
-    margin-bottom: 24px;
-  }
-
-  .empty-state {
-    padding: 60px 20px;
-    border-radius: 16px;
-  }
-
-  .empty-state__icon {
-    font-size: 44px;
-    margin-bottom: 16px;
-  }
-
-  .empty-state__text {
-    font-size: 16px;
-  }
-}
-
-/* ============================================
-   АДАПТИВНОСТЬ ДЛЯ МОБИЛЬНЫХ (480px)
-   ============================================ */
-
-@media (max-width: 480px) {
-  .page-content {
-    padding: 24px 20px;
-  }
-
-  .page-title {
-    font-size: 28px;
+    font-size: 24px;
   }
 
   .meta-info {
@@ -507,26 +418,121 @@ img {
     padding: 4px 8px;
   }
 
-  .info-icon {
-    font-size: 11px;
-  }
-
   .tabs-nav {
-    gap: 6px;
+    gap: 4px;
     padding: 4px;
     margin-bottom: 24px;
   }
 
   .tab-btn {
-    padding: 7px 14px;
+    padding: 6px 12px;
+    font-size: 11px;
+    min-height: 40px;
+  }
+
+  .icon-star,
+  .icon-heart,
+  .icon-hide {
+    font-size: 13px;
+    margin-right: 2px;
+  }
+
+  .motorcycle-card {
+    padding: 16px;
+    border-radius: 12px;
+  }
+
+  .motorcycle-card__title {
+    font-size: 15px;
+  }
+
+  .motorcycle-card__brand {
     font-size: 12px;
+    margin-bottom: 12px;
+  }
+
+  .motorcycle-card__details {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .detail-item {
+    font-size: 12px;
+  }
+
+  .motorcycle-card__category {
+    font-size: 10px;
+    padding: 4px 10px;
+  }
+
+  .section-title {
+    font-size: 18px;
+    margin-bottom: 16px;
+  }
+
+  .empty-state {
+    padding: 40px 16px;
+    border-radius: 12px;
+  }
+
+  .empty-state__icon {
+    font-size: 36px;
+    margin-bottom: 12px;
+  }
+
+  .empty-state__text {
+    font-size: 14px;
+  }
+}
+
+/* ============================================
+   АДАПТИВНОСТЬ: МАЛЫЕ ТЕЛЕФОНЫ (375px - 480px)
+   ============================================ */
+
+@media (min-width: 375px) and (max-width: 480px) {
+  .page-content {
+    padding: 40px 20px;
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .page-title {
+    font-size: 28px;
+  }
+
+  .moto-header {
+    margin-bottom: 24px;
+  }
+
+  .meta-info {
+    font-size: 11px;
+    padding: 5px 10px;
+  }
+
+  .info-icon {
+    font-size: 12px;
+  }
+
+  .tabs-nav {
+    gap: 6px;
+    padding: 5px;
+    margin-bottom: 28px;
+    border-radius: 10px;
+  }
+
+  .tab-btn {
+    padding: 8px 14px;
+    font-size: 12px;
+    border-radius: 8px;
+    min-height: 42px;
   }
 
   .icon-star,
   .icon-heart,
   .icon-hide {
     font-size: 14px;
-    margin-right: 3px;
+    margin-right: 4px;
   }
 
   .motorcycle-card {
@@ -546,7 +552,7 @@ img {
   .motorcycle-card__details {
     flex-direction: column;
     align-items: flex-start;
-    gap: 12px;
+    gap: 10px;
   }
 
   .detail-item {
@@ -583,20 +589,299 @@ img {
 }
 
 /* ============================================
-   АДАПТИВНОСТЬ ДЛЯ БОЛЬШИХ ЭКРАНОВ (1440px+)
+   АДАПТИВНОСТЬ: БОЛЬШИЕ ТЕЛЕФОНЫ (481px - 600px)
    ============================================ */
 
-@media (min-width: 1440px) {
+@media (min-width: 481px) and (max-width: 600px) {
   .page-content {
-    padding: 72px 64px;
+    padding: 44px 24px;
+    margin-left: 0;
+    width: 100%;
   }
 
   .page-title {
-    font-size: 64px;
+    font-size: 32px;
+  }
+
+  .moto-header {
+    margin-bottom: 28px;
+  }
+
+  .meta-info {
+    font-size: 11px;
+    padding: 5px 10px;
+  }
+
+  .tabs-nav {
+    gap: 8px;
+    padding: 5px;
+    margin-bottom: 32px;
+  }
+
+  .tab-btn {
+    padding: 8px 16px;
+    font-size: 13px;
+  }
+
+  .motorcycle-card {
+    padding: 22px;
+    border-radius: 15px;
+  }
+
+  .motorcycle-card__title {
+    font-size: 18px;
+  }
+
+  .motorcycle-card__brand {
+    font-size: 14px;
+  }
+
+  .motorcycle-card__details {
+    gap: 16px;
+  }
+
+  .section-title {
+    font-size: 22px;
+  }
+}
+
+/* ============================================
+   АДАПТИВНОСТЬ: МАЛЫЕ ПЛАНШЕТЫ (601px - 768px)
+   ============================================ */
+
+@media (min-width: 601px) and (max-width: 768px) {
+  .page-content {
+    padding: 48px 28px;
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .page-title {
+    font-size: 36px;
+  }
+
+  .moto-header {
+    margin-bottom: 32px;
+  }
+
+  .tabs-nav {
+    gap: 10px;
+    padding: 6px;
+    margin-bottom: 36px;
+    border-radius: 11px;
+  }
+
+  .tab-btn {
+    padding: 9px 18px;
+    font-size: 13px;
+  }
+
+  .motorcycle-card {
+    padding: 26px;
+    border-radius: 16px;
+  }
+
+  .motorcycle-card__title {
+    font-size: 19px;
+  }
+
+  .motorcycle-card__brand {
+    font-size: 14px;
+    margin-bottom: 16px;
+  }
+
+  .motorcycle-card__details {
+    gap: 20px;
+  }
+
+  .motorcycle-card__top {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .section-title {
+    font-size: 24px;
+    margin-bottom: 24px;
+  }
+
+  .empty-state {
+    padding: 56px 20px;
+    border-radius: 16px;
+  }
+
+  .empty-state__icon {
+    font-size: 44px;
+    margin-bottom: 16px;
+  }
+
+  .empty-state__text {
+    font-size: 16px;
+  }
+}
+
+/* ============================================
+   АДАПТИВНОСТЬ: ПЛАНШЕТЫ (769px - 1024px)
+   ============================================ */
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .page-content {
+    padding: 52px 32px;
+    margin-left: 240px;
+    width: calc(100% - 240px);
+  }
+
+  .page-title {
+    font-size: 44px;
+  }
+
+  .moto-header {
+    margin-bottom: 40px;
+  }
+
+  .tabs-nav {
+    margin-bottom: 40px;
+  }
+
+  .tab-btn {
+    padding: 9px 18px;
+    font-size: 13px;
+  }
+
+  .motorcycle-card {
+    padding: 28px;
+    border-radius: 17px;
+  }
+
+  .motorcycle-card__title {
+    font-size: 20px;
+  }
+
+  .motorcycle-card__brand {
+    font-size: 14px;
+  }
+
+  .motorcycle-card__details {
+    gap: 24px;
+  }
+
+  .section-title {
+    font-size: 26px;
+  }
+}
+
+/* ============================================
+   АДАПТИВНОСТЬ: БОЛЬШИЕ ПЛАНШЕТЫ (1025px - 1280px)
+   ============================================ */
+
+@media (min-width: 1025px) and (max-width: 1280px) {
+  .page-content {
+    padding: 56px 40px;
+    margin-left: 260px;
+    width: calc(100% - 260px);
+  }
+
+  .page-title {
+    font-size: 48px;
   }
 
   .content-container {
-    max-width: 1440px;
+    max-width: 1152px;
+  }
+
+  .motorcycle-card {
+    padding: 30px;
+  }
+
+  .motorcycle-card__title {
+    font-size: 21px;
+  }
+
+  .section-title {
+    font-size: 27px;
+  }
+}
+
+/* ============================================
+   АДАПТИВНОСТЬ: МАЛЫЕ НОУТБУКИ (1281px - 1440px)
+   ============================================ */
+
+@media (min-width: 1281px) and (max-width: 1440px) {
+  .page-content {
+    padding: 60px 48px;
+    margin-left: 270px;
+    width: calc(100% - 270px);
+  }
+
+  .page-title {
+    font-size: 52px;
+  }
+
+  .content-container {
+    max-width: 1216px;
+  }
+
+  .motorcycle-card {
+    padding: 32px;
+  }
+
+  .motorcycle-card__title {
+    font-size: 22px;
+  }
+
+  .section-title {
+    font-size: 28px;
+  }
+}
+
+/* ============================================
+   АДАПТИВНОСТЬ: СТАНДАРТНЫЕ ДЕСКТОПЫ (1441px - 1920px)
+   ============================================ */
+
+@media (min-width: 1441px) and (max-width: 1920px) {
+  .page-content {
+    padding: 64px 56px;
+    margin-left: 280px;
+    width: calc(100% - 280px);
+  }
+
+  .page-title {
+    font-size: 56px;
+  }
+
+  .content-container {
+    max-width: 1344px;
+  }
+
+  .motorcycle-card {
+    padding: 36px;
+  }
+
+  .motorcycle-card__title {
+    font-size: 23px;
+  }
+
+  .section-title {
+    font-size: 30px;
+  }
+}
+
+/* ============================================
+   АДАПТИВНОСТЬ: БОЛЬШИЕ ДЕСКТОПЫ (1921px - 2560px)
+   ============================================ */
+
+@media (min-width: 1921px) and (max-width: 2560px) {
+  .page-content {
+    padding: 72px 64px;
+    margin-left: 300px;
+    width: calc(100% - 300px);
+  }
+
+  .page-title {
+    font-size: 60px;
+  }
+
+  .content-container {
+    max-width: 1536px;
   }
 
   .motorcycle-card {
@@ -609,6 +894,187 @@ img {
 
   .section-title {
     font-size: 32px;
+  }
+}
+
+/* ============================================
+   АДАПТИВНОСТЬ: УЛЬТРА-ШИРОКИЕ ЭКРАНЫ (2561px+)
+   ============================================ */
+
+@media (min-width: 2561px) {
+  html {
+    font-size: 18px;
+  }
+
+  .page-content {
+    padding: 80px 80px;
+    margin-left: 320px;
+    width: calc(100% - 320px);
+  }
+
+  .page-title {
+    font-size: 68px;
+  }
+
+  .content-container {
+    max-width: 1920px;
+  }
+
+  .motorcycle-card {
+    padding: 48px;
+    border-radius: 24px;
+  }
+
+  .motorcycle-card__title {
+    font-size: 28px;
+  }
+
+  .motorcycle-card__brand {
+    font-size: 17px;
+  }
+
+  .motorcycle-card__details {
+    gap: 40px;
+  }
+
+  .detail-item {
+    font-size: 16px;
+  }
+
+  .section-title {
+    font-size: 36px;
+  }
+
+  .empty-state {
+    padding: 100px 40px;
+  }
+
+  .empty-state__icon {
+    font-size: 72px;
+  }
+
+  .empty-state__text {
+    font-size: 20px;
+  }
+}
+
+/* ============================================
+   АДАПТИВНОСТЬ: ПОРТРЕТНАЯ ОРИЕНТАЦИЯ
+   ============================================ */
+
+@media (orientation: portrait) and (max-width: 768px) {
+  .page-content {
+    padding: 48px 20px;
+  }
+
+  .page-title {
+    font-size: 32px;
+  }
+
+  .tabs-nav {
+    padding: 4px;
+  }
+
+  .tab-btn {
+    padding: 8px 14px;
+    font-size: 12px;
+  }
+
+  .motorcycle-card {
+    padding: 20px;
+  }
+}
+
+/* ============================================
+   АДАПТИВНОСТЬ: ЛАНДШАФТНАЯ ОРИЕНТАЦИЯ
+   ============================================ */
+
+@media (orientation: landscape) and (max-height: 500px) {
+  .page-content {
+    padding: 32px 24px;
+  }
+
+  .page-title {
+    font-size: 32px;
+    margin-top: 8px;
+  }
+
+  .moto-header {
+    margin-bottom: 24px;
+  }
+
+  .tabs-nav {
+    margin-bottom: 24px;
+  }
+
+  .motorcycle-card {
+    padding: 20px;
+  }
+
+  .motorcycle-card__details {
+    gap: 20px;
+  }
+}
+
+/* ============================================
+   АДАПТИВНОСТЬ: СКЛАДНЫЕ УСТРОЙСТВА
+   ============================================ */
+
+@media (spanning: single-fold-vertical) {
+  .page-content {
+    padding: 48px 24px;
+  }
+
+  .content-container {
+    max-width: 100%;
+  }
+}
+
+@media (spanning: single-fold-horizontal) {
+  .page-content {
+    padding: 40px 32px;
+  }
+}
+
+/* ============================================
+   АДАПТИВНОСТЬ: ВЫСОКАЯ ПЛОТНОСТЬ ПИКСЕЛЕЙ
+   ============================================ */
+
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .motorcycle-card {
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+  }
+
+  .motorcycle-card:hover {
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  }
+
+  .tabs-nav {
+    border-width: 0.5px;
+  }
+}
+
+/* ============================================
+   АДАПТИВНОСТЬ: TOUCH-УСТРОЙСТВА
+   ============================================ */
+
+@media (pointer: coarse) {
+  .tab-btn {
+    min-height: 48px;
+    padding: 12px 20px;
+  }
+
+  .meta-info {
+    min-height: 40px;
+    padding: 8px 14px;
+  }
+
+  .motorcycle-card {
+    padding: 24px;
+  }
+
+  .motorcycle-card__category {
+    padding: 8px 16px;
   }
 }
 
@@ -630,6 +1096,10 @@ img {
   .meta-info {
     border: 1px solid #1d1d1f;
   }
+
+  .tabs-nav {
+    border: 1px solid #1d1d1f;
+  }
 }
 
 /* Уменьшенная анимация */
@@ -649,6 +1119,10 @@ img {
   .motorcycle-card:hover {
     transform: none;
   }
+
+  .motorcycle-card {
+    animation: none;
+  }
 }
 
 /* ============================================
@@ -659,6 +1133,10 @@ img {
   body {
     background-color: #000000;
     color: #f5f5f7;
+  }
+
+  .page-wrapper {
+    background-color: #000000;
   }
 
   .page-content {
@@ -788,4 +1266,21 @@ img {
 .tabs-nav {
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
+}
+
+/* ============================================
+   CONTAINER QUERIES (СОВРЕМЕННЫЕ БРАУЗЕРЫ)
+   ============================================ */
+
+@supports (container-type: inline-size) {
+  .content-container {
+    container-type: inline-size;
+  }
+
+  @container (max-width: 600px) {
+    .motorcycle-card__details {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
 }

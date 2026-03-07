@@ -1,128 +1,381 @@
 /* src/index.css */
-:root {
-  /* Отступы карточек */
-  --card-margin-left: 300px;
-  --card-margin-left-mobile: 10px;
-  --card-margin-left-small: 8px;
-  
-  /* Паддинги карточек */
-  --card-padding: 32px;
-  --card-padding-mobile: 24px;
-  --card-padding-small: 20px 16px;
-  
-  /* Размеры шрифтов */
-  --card-title-size: 28px;
-  --card-title-size-mobile: 24px;
-  --card-title-size-small: 22px;
-  
-  --card-desc-size: 16px;
-  --card-desc-size-mobile: 15px;
-  --card-desc-size-small: 14px;
-  
-  /* Максимальная ширина */
-  --card-max-width: 800px;
-  --card-max-width-mobile: calc(100% - 20px);
-  --card-max-width-small: calc(100% - 16px);
-  
-  /* Цвета и эффекты */
-  --card-bg: #fff;
-  --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  --card-radius: 12px;
-  --card-title-color: #333;
-  --card-desc-color: #666;
+
+/* ===== Сброс стилей и базовые настройки ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-/* Обёртка страницы с сайдбаром */
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', sans-serif;
+  background-color: #f5f5f7;
+  color: #1d1d1f;
+  line-height: 1.5;
+  letter-spacing: -0.022em;
+  font-weight: 400;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ===== Обёртка страницы с сайдбаром ===== */
 .page-wrapper {
   display: flex;
   min-height: 100vh;
+  background-color: #f5f5f7;
+  transition: background-color 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 
-/* Основной контент с отступом под сайдбар */
+/* ===== Основной контент ===== */
 .page-content {
   flex: 1;
-  margin-left: 0;
-  padding: 32px;
-  background-color: #f5f7fa;
+  padding: 60px 48px;
+  background-color: #f5f5f7;
   min-height: 100vh;
-  transition: all 0.25s ease;
+  transition: all 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-/* ========== Универсальная карточка ========== */
+/* ========== Универсальная карточка (Apple Style) ========== */
 .page-card {
-  background: var(--card-bg);
-  padding: var(--card-padding);
-  border-radius: var(--card-radius);
-  box-shadow: var(--card-shadow);
-  max-width: var(--card-max-width);
-  margin-left: var(--card-margin-left);
-  transition: margin-left 0.25s ease, padding 0.25s ease;
+  background: #ffffff;
+  padding: 40px;
+  border-radius: 18px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  max-width: 900px;
+  width: 100%;
+  margin: 0 auto;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  transition: padding 0.4s cubic-bezier(0.25, 0.1, 0.25, 1),
+              box-shadow 0.4s cubic-bezier(0.25, 0.1, 0.25, 1),
+              transform 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.page-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(0, 0, 0, 0.06) 50%,
+    transparent 100%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.page-card:hover {
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  transform: scale(1.01);
+}
+
+.page-card:hover::before {
+  opacity: 1;
 }
 
 .page-card__title {
-  margin: 0 0 16px;
-  font-size: var(--card-title-size);
-  color: var(--card-title-color);
+  margin: 0 0 20px;
+  font-size: 32px;
+  color: #1d1d1f;
   font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+  transition: color 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 
 .page-card__description {
   margin: 0;
-  color: var(--card-desc-color);
+  color: #86868b;
   line-height: 1.6;
-  font-size: var(--card-desc-size);
+  font-size: 17px;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
+  transition: color 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 
-/* ========== Адаптивность ========== */
-@media (max-width: 768px) {
-  :root {
-    --card-margin-left: var(--card-margin-left-mobile);
-    --card-padding: var(--card-padding-mobile);
-    --card-title-size: var(--card-title-size-mobile);
-    --card-desc-size: var(--card-desc-size-mobile);
-    --card-max-width: var(--card-max-width-mobile);
-  }
-  
+/* ========== Адаптивность (Планшеты 1024px) ========== */
+@media (max-width: 1024px) {
   .page-content {
-    padding: 72px 16px 16px; 
-  }
-}
-
-@media (max-width: 480px) {
-  :root {
-    --card-margin-left: var(--card-margin-left-small);
-    --card-padding: var(--card-padding-small);
-    --card-title-size: var(--card-title-size-small);
-    --card-desc-size: var(--card-desc-size-small);
-    --card-max-width: var(--card-max-width-small);
+    padding: 48px 32px;
   }
   
   .page-card {
-    border-radius: 10px;
+    padding: 36px;
+    border-radius: 16px;
+    max-width: 800px;
+  }
+  
+  .page-card__title {
+    font-size: 28px;
+  }
+  
+  .page-card__description {
+    font-size: 16px;
   }
 }
 
-/* Лоадер */
+/* ========== Адаптивность (Планшеты 768px) ========== */
+@media (max-width: 768px) {
+  .page-content {
+    padding: 72px 24px 24px;
+  }
+  
+  .page-card {
+    padding: 32px;
+    border-radius: 16px;
+    max-width: calc(100% - 40px);
+  }
+  
+  .page-card__title {
+    font-size: 28px;
+  }
+  
+  .page-card__description {
+    font-size: 16px;
+  }
+}
+
+/* ========== Адаптивность (Мобильные 480px) ========== */
+@media (max-width: 480px) {
+  .page-content {
+    padding: 64px 20px 20px;
+  }
+  
+  .page-card {
+    padding: 24px 20px;
+    border-radius: 14px;
+    max-width: calc(100% - 32px);
+  }
+  
+  .page-card__title {
+    font-size: 24px;
+    margin-bottom: 16px;
+  }
+  
+  .page-card__description {
+    font-size: 15px;
+  }
+}
+
+/* ========== Большие экраны (1440px+) ========== */
+@media (min-width: 1440px) {
+  .page-content {
+    padding: 72px 64px;
+  }
+  
+  .page-card {
+    padding: 48px;
+    max-width: 1000px;
+  }
+  
+  .page-card__title {
+    font-size: 36px;
+  }
+  
+  .page-card__description {
+    font-size: 18px;
+  }
+}
+
+/* ========== Лоадер (Apple Style) ========== */
 .page-loader {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  gap: 16px;
-  color: #666;
-  font-size: 16px;
+  gap: 20px;
+  color: #86868b;
+  font-size: 15px;
+  font-weight: 500;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
+  background-color: #f5f5f7;
+  transition: background-color 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 
 .spinner {
-  width: 40px;
-  height: 40px;
-  border: 3px solid #f3f3f3;
-  border-top: 3px solid #1976d2;
+  width: 44px;
+  height: 44px;
+  border: 3px solid rgba(0, 113, 227, 0.15);
+  border-top: 3px solid #0071e3;
   border-radius: 50%;
   animation: spin 1s linear infinite;
+  transition: border-color 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ========== Тёмная тема (Apple Style) ========== */
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #000000;
+    color: #f5f5f7;
+  }
+  
+  .page-wrapper {
+    background-color: #000000;
+  }
+  
+  .page-content {
+    background-color: #000000;
+  }
+  
+  .page-card {
+    background: #1c1c1e;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  .page-card:hover {
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+  }
+  
+  .page-card::before {
+    background: linear-gradient(90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.08) 50%,
+      transparent 100%);
+  }
+  
+  .page-card__title {
+    color: #f5f5f7;
+  }
+  
+  .page-card__description {
+    color: #a1a1a6;
+  }
+  
+  .page-loader {
+    color: #a1a1a6;
+    background-color: #000000;
+  }
+  
+  .spinner {
+    border: 3px solid rgba(255, 255, 255, 0.15);
+    border-top: 3px solid #0071e3;
+  }
+}
+
+/* ========== Уменьшенная анимация ========== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .page-card:hover {
+    transform: none;
+  }
+}
+
+/* ========== Высокий контраст ========== */
+@media (prefers-contrast: high) {
+  .page-card {
+    border: 2px solid #1d1d1f;
+  }
+  
+  .page-card:hover {
+    transform: none;
+  }
+  
+  .spinner {
+    border-width: 4px;
+  }
+}
+
+/* ========== Плавное появление карточек ========== */
+.page-card {
+  animation: cardFadeIn 0.6s cubic-bezier(0.25, 0.1, 0.25, 1) backwards;
+}
+
+.page-card:nth-child(1) { animation-delay: 0.05s; }
+.page-card:nth-child(2) { animation-delay: 0.1s; }
+.page-card:nth-child(3) { animation-delay: 0.15s; }
+.page-card:nth-child(4) { animation-delay: 0.2s; }
+.page-card:nth-child(5) { animation-delay: 0.25s; }
+
+@keyframes cardFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ========== Фокус для доступности ========== */
+.page-card:focus-within {
+  outline: 2px solid #0071e3;
+  outline-offset: 2px;
+}
+
+/* ========== Скроллбар (Apple Style) ========== */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+@media (prefers-color-scheme: dark) {
+  ::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+  }
 }
