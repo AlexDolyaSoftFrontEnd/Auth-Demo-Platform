@@ -210,8 +210,8 @@ const MotoHub: React.FC = () => {
         {/* Заголовок страницы с мета-информацией */}
         <header className="moto-header">
           <div className="meta-info">
-            Гараж 
-            <span className="info-icon" title="Информация">🤣</span>
+            {/* Гараж 
+            <span className="info-icon" title="Информация">🤣</span> */}
           </div>
           <h1 className="page-title">Мотоциклы</h1>
         </header>
