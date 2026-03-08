@@ -25,7 +25,7 @@ const Home: React.FC = () => {
           </div>
 
           {/* Крестик справа */}
-          <button className="page-card__close-btn" onClick={handleClose} type="button" aria-label="Закрыть">
+          <button className="page-card__close-btn" onClick={handleClose} type="button" aria-label="Закрыть" title='Close'>
             <FaTimes size={20} />
           </button>
           
