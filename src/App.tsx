@@ -60,7 +60,7 @@ const RouteErrorBoundary: React.FC = () => (
  * Layout-компонент для защиты маршрутов
  * Проверяет авторизацию перед рендером дочерних маршрутов
  * 
- * @returns Outlet для дочерних маршрутов или Navigate на логин
+ * Outlet для дочерних маршрутов или Navigate на логин
  */
 const ProtectedLayout: React.FC = () => {
   const isAuthenticated = useSelector(

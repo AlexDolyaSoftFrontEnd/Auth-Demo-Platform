@@ -3,10 +3,6 @@ import Sidebar from '../../components/Sidebar/Sidebar';
 import { FiStar, FiMapPin, FiDollarSign, FiCalendar, FiHeart, FiEyeOff } from 'react-icons/fi';
 import './MotoHub.css';
 
-// ============================================
-// ТИПЫ И ИНТЕРФЕЙСЫ
-// ============================================
-
 // Типы доступных вкладок навигации
 type TabType = 'all' | 'recommend' | 'favorite' | 'hidden';
 

@@ -1,5 +1,3 @@
-// src/components/Table/Table.tsx
-
 import React from "react";
 import "./TableDemo.css";
 import Sidebar from "../../components/Sidebar/Sidebar";

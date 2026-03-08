@@ -3,10 +3,6 @@ import Sidebar from '../../components/Sidebar/Sidebar';
 import { FiX, FiBell, FiLock, FiUser, FiGlobe, FiMoon } from 'react-icons/fi';
 import './Settings.css';
 
-// ============================================
-// ТИПЫ
-// ============================================
-
 interface SettingsField {
   id: string;
   label: string;
@@ -29,9 +25,6 @@ interface SettingsCheckbox {
   checked: boolean;
 }
 
-// ============================================
-// ОСНОВНОЙ КОМПОНЕНТ
-// ============================================
 
 const Settings: React.FC = () => {
   // Поля профиля
@@ -61,10 +54,6 @@ const Settings: React.FC = () => {
     { id: 'newsletter', label: 'Подписаться на еженедельную рассылку', checked: true },
     { id: 'updates', label: 'Получать обновления о продукте', checked: true },
   ]);
-
-  // ============================================
-  // ОБРАБОТЧИКИ
-  // ============================================
 
   // Очистка поля
   const handleClearField = (section: 'profile' | 'security', id: string) => {
@@ -105,10 +94,6 @@ const Settings: React.FC = () => {
       prev.map(checkbox => checkbox.id === id ? { ...checkbox, checked: !checkbox.checked } : checkbox)
     );
   };
-
-  // ============================================
-  // РЕНДЕР
-  // ============================================
 
   return (
     <div className="page-wrapper">
