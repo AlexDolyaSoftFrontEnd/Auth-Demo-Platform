@@ -116,11 +116,6 @@ const Settings: React.FC = () => {
       
       <main className="page-content">
         <div className="settings-container">
-          {/* Заголовок страницы */}
-          <header className="settings-header">
-            <h1 className="settings-title">⚙️ Настройки</h1>
-            {/* <p className="settings-subtitle">Настройки профиля</p> */}
-          </header>
 
           {/* Секция: Профиль */}
           <section className="settings-section">

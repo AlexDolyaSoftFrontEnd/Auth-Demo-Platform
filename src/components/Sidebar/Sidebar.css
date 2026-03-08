@@ -20,17 +20,16 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: 280px; /* Фиксированная ширина для десктопа */
-  height: 100vh; /* На всю высоту окна */
-  background: #ffffff; /* Белый фон в стиле Apple */
-  border-right: 1px solid rgba(0, 0, 0, 0.08); /* Тонкая разделительная линия */
-  z-index: 1000; /* Поверх контента, но под модальными окнами */
+  width: 280px; 
+  height: 100vh; 
+  background: #ffffff; 
+  border-right: 1px solid rgba(0, 0, 0, 0.08);
+  z-index: 1000; 
   display: flex;
-  flex-direction: column; /* Вертикальное расположение элементов */
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06); /* Мягкая тень для глубины */
-  /* Плавный переход для трансформации (выезд меню) и тени */
+  flex-direction: column; 
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
   transition: transform 0.4s cubic-bezier(0.25, 0.1, 0.25, 1), box-shadow 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
-  will-change: transform; /* Подсказка браузеру для оптимизации анимации */
+  will-change: transform;
 }
 
 /* Скрытое состояние: сдвиг за левый край экрана */
@@ -43,7 +42,7 @@
   display: flex;
   flex-direction: column;
   height: 100%;
-  padding: 20px 16px; /* Внутренние отступы */
+  padding: 20px 16px;
 }
 
 /* ============================================
@@ -51,29 +50,29 @@
    ============================================ */
 
 .sidebar__menu {
-  flex: 1; /* Занимает всё доступное пространство между header и footer */
-  list-style: none; /* Убираем стандартные маркеры списка */
+  flex: 1;
+  list-style: none; 
   padding: 0;
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 4px; /* Расстояние между пунктами меню */
-  overflow-y: auto; /* Вертикальный скролл если пунктов много */
-  scrollbar-gutter: stable; /* Предотвращает "прыжок" контента при появлении скролла */
+  gap: 4px; 
+  overflow-y: auto; 
+  scrollbar-gutter: stable; 
 }
 
 /* Кастомный скроллбар в стиле Apple (Webkit) */
 .sidebar__menu::-webkit-scrollbar {
-  width: 4px; /* Очень тонкий скроллбар */
+  width: 4px; 
 }
 
 .sidebar__menu::-webkit-scrollbar-track {
-  background: transparent; /* Прозрачный трек */
+  background: transparent; 
 }
 
 .sidebar__menu::-webkit-scrollbar-thumb {
-  background: #d2d2d7; /* Цвет ползунка */
-  border-radius: 2px; /* Скругление */
+  background: #d2d2d7; 
+  border-radius: 2px; 
 }
 
 /* Элемент списка: сброс стандартных стилей */

@@ -1,381 +1,425 @@
-/* src/index.css */
-
-/* ===== Сброс стилей и базовые настройки ===== */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-body {
-  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', sans-serif;
-  background-color: #f5f5f7;
-  color: #1d1d1f;
-  line-height: 1.5;
-  letter-spacing: -0.022em;
-  font-weight: 400;
-}
-
-a {
-  text-decoration: none;
-  color: inherit;
-  transition: color 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
-}
-
-button {
-  font-family: inherit;
-  cursor: pointer;
-  border: none;
-  background: none;
-}
-
-img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-}
-
-/* ===== Обёртка страницы с сайдбаром ===== */
-.page-wrapper {
-  display: flex;
-  min-height: 100vh;
-  background-color: #f5f5f7;
-  transition: background-color 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
-}
-
-/* ===== Основной контент ===== */
-.page-content {
-  flex: 1;
-  padding: 60px 48px;
-  background-color: #f5f5f7;
-  min-height: 100vh;
-  transition: all 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-/* ========== Универсальная карточка (Apple Style) ========== */
-.page-card {
-  background: #ffffff;
-  padding: 40px;
-  border-radius: 18px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
-  max-width: 900px;
-  width: 100%;
-  margin: 0 auto;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  transition: padding 0.4s cubic-bezier(0.25, 0.1, 0.25, 1),
-              box-shadow 0.4s cubic-bezier(0.25, 0.1, 0.25, 1),
-              transform 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
-  position: relative;
-  overflow: hidden;
-}
-
-.page-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: linear-gradient(90deg,
-    transparent 0%,
-    rgba(0, 0, 0, 0.06) 50%,
-    transparent 100%);
-  opacity: 0;
-  transition: opacity 0.4s ease;
-}
-
-.page-card:hover {
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
-  transform: scale(1.01);
-}
-
-.page-card:hover::before {
-  opacity: 1;
-}
-
-.page-card__title {
-  margin: 0 0 20px;
-  font-size: 32px;
-  color: #1d1d1f;
-  font-weight: 600;
-  line-height: 1.2;
-  letter-spacing: -0.01em;
-  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
-  transition: color 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
-}
-
-.page-card__description {
-  margin: 0;
-  color: #86868b;
-  line-height: 1.6;
-  font-size: 17px;
-  font-weight: 400;
-  letter-spacing: -0.01em;
-  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
-  transition: color 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
-}
-
-/* ========== Адаптивность (Планшеты 1024px) ========== */
-@media (max-width: 1024px) {
-  .page-content {
-    padding: 48px 32px;
-  }
-  
-  .page-card {
-    padding: 36px;
-    border-radius: 16px;
-    max-width: 800px;
-  }
-  
-  .page-card__title {
-    font-size: 28px;
-  }
-  
-  .page-card__description {
-    font-size: 16px;
-  }
-}
-
-/* ========== Адаптивность (Планшеты 768px) ========== */
-@media (max-width: 768px) {
-  .page-content {
-    padding: 72px 24px 24px;
-  }
-  
-  .page-card {
-    padding: 32px;
-    border-radius: 16px;
-    max-width: calc(100% - 40px);
-  }
-  
-  .page-card__title {
-    font-size: 28px;
-  }
-  
-  .page-card__description {
-    font-size: 16px;
-  }
-}
-
-/* ========== Адаптивность (Мобильные 480px) ========== */
-@media (max-width: 480px) {
-  .page-content {
-    padding: 64px 20px 20px;
-  }
-  
-  .page-card {
-    padding: 24px 20px;
-    border-radius: 14px;
-    max-width: calc(100% - 32px);
-  }
-  
-  .page-card__title {
-    font-size: 24px;
-    margin-bottom: 16px;
-  }
-  
-  .page-card__description {
-    font-size: 15px;
-  }
-}
-
-/* ========== Большие экраны (1440px+) ========== */
-@media (min-width: 1440px) {
-  .page-content {
-    padding: 72px 64px;
-  }
-  
-  .page-card {
-    padding: 48px;
-    max-width: 1000px;
-  }
-  
-  .page-card__title {
-    font-size: 36px;
-  }
-  
-  .page-card__description {
-    font-size: 18px;
-  }
-}
-
-/* ========== Лоадер (Apple Style) ========== */
-.page-loader {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  gap: 20px;
-  color: #86868b;
-  font-size: 15px;
-  font-weight: 500;
-  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
-  background-color: #f5f5f7;
-  transition: background-color 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
-}
-
-.spinner {
-  width: 44px;
-  height: 44px;
-  border: 3px solid rgba(0, 113, 227, 0.15);
-  border-top: 3px solid #0071e3;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-  transition: border-color 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-/* ========== Тёмная тема (Apple Style) ========== */
-@media (prefers-color-scheme: dark) {
-  body {
-    background-color: #000000;
-    color: #f5f5f7;
-  }
-  
-  .page-wrapper {
-    background-color: #000000;
+/* ============================================
+   BASE LAYOUT
+   ============================================ */
+   .page-wrapper {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
   }
   
   .page-content {
-    background-color: #000000;
+    flex: 1;
+    padding-top: 120px;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding-bottom: 2rem;
+    background-color: #f4f6f8;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
   
+  /* ============================================
+     PAGE CARD — Fixed Header
+     ============================================ */
   .page-card {
-    background: #1c1c1e;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
-    border-color: rgba(255, 255, 255, 0.1);
+    background: white;
+    padding: 1.5rem 2rem;
+    position: fixed;
+    top: 0;
+    left: 320px;
+    right: 0;
+    max-width: 1200px;
+    width: calc(100% - 320px);
+    margin: 0 auto;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid #e0e0e0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    backdrop-filter: saturate(180%) blur(10px);
+    -webkit-backdrop-filter: saturate(180%) blur(10px);
+    transition: all 0.3s ease;
   }
   
-  .page-card:hover {
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+  .page-card__content {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 15px;
+    flex: 1;
+    min-width: 0;
   }
   
-  .page-card::before {
-    background: linear-gradient(90deg,
-      transparent 0%,
-      rgba(255, 255, 255, 0.08) 50%,
-      transparent 100%);
+  /* ============================================
+     CLOSE BUTTON
+     ============================================ */
+  .page-card__close-btn {
+    position: static;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: #666;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+    min-width: 40px;
+    min-height: 40px;
   }
   
+  .page-card__close-btn:hover {
+    background-color: #ffebee;
+    color: #d32f2f;
+    transform: rotate(90deg);
+  }
+  
+  .page-card__close-btn:active {
+    transform: rotate(90deg) scale(0.95);
+    background-color: #ffcdd2;
+  }
+  
+  .page-card__close-btn:focus-visible {
+    outline: 2px solid #4a90e2;
+    outline-offset: 2px;
+  }
+  
+  /* ============================================
+     TITLE & CONTENT
+     ============================================ */
   .page-card__title {
-    color: #f5f5f7;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #333;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .page-card__icon {
+    color: #4a90e2;
+    flex-shrink: 0;
+    font-size: 1.5rem;
   }
   
   .page-card__description {
-    color: #a1a1a6;
+    color: #666;
+    line-height: 1.5;
+    font-size: 0.95rem;
+    margin: 0;
   }
   
-  .page-loader {
-    color: #a1a1a6;
-    background-color: #000000;
+  /* ============================================
+     DARK THEME
+     ============================================ */
+  @media (prefers-color-scheme: dark) {
+    .page-content {
+      background-color: #1a1a1a;
+    }
+    
+    .page-card {
+      background: rgba(30, 30, 30, 0.95);
+      border-bottom-color: #333;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    }
+    
+    .page-card__title {
+      color: #f5f5f5;
+    }
+    
+    .page-card__description {
+      color: #aaa;
+    }
+    
+    .page-card__close-btn {
+      color: #aaa;
+    }
+    
+    .page-card__close-btn:hover {
+      background-color: rgba(255, 82, 82, 0.2);
+      color: #ff5252;
+    }
+    
+    .page-card__icon {
+      color: #64b5f6;
+    }
   }
   
-  .spinner {
-    border: 3px solid rgba(255, 255, 255, 0.15);
-    border-top: 3px solid #0071e3;
-  }
-}
-
-/* ========== Уменьшенная анимация ========== */
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-  
-  .page-card:hover {
-    transform: none;
-  }
-}
-
-/* ========== Высокий контраст ========== */
-@media (prefers-contrast: high) {
-  .page-card {
-    border: 2px solid #1d1d1f;
+  /* ============================================
+     RESPONSIVE: Large Desktop ≤ 1400px
+     ============================================ */
+  @media (max-width: 1400px) {
+    .page-card {
+      left: 280px;
+      width: calc(100% - 280px);
+      max-width: 1000px;
+    }
+    
+    .page-content {
+      padding-top: 110px;
+    }
   }
   
-  .page-card:hover {
-    transform: none;
+  /* ============================================
+     RESPONSIVE: Desktop ≤ 1200px
+     ============================================ */
+  @media (max-width: 1200px) {
+    .page-card {
+      left: 260px;
+      width: calc(100% - 260px);
+      max-width: 900px;
+      padding: 1.25rem 1.5rem;
+    }
+    
+    .page-card__title {
+      font-size: 1.35rem;
+    }
+    
+    .page-content {
+      padding-top: 100px;
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
   }
   
-  .spinner {
-    border-width: 4px;
-  }
-}
-
-/* ========== Плавное появление карточек ========== */
-.page-card {
-  animation: cardFadeIn 0.6s cubic-bezier(0.25, 0.1, 0.25, 1) backwards;
-}
-
-.page-card:nth-child(1) { animation-delay: 0.05s; }
-.page-card:nth-child(2) { animation-delay: 0.1s; }
-.page-card:nth-child(3) { animation-delay: 0.15s; }
-.page-card:nth-child(4) { animation-delay: 0.2s; }
-.page-card:nth-child(5) { animation-delay: 0.25s; }
-
-@keyframes cardFadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(16px) scale(0.98);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-/* ========== Фокус для доступности ========== */
-.page-card:focus-within {
-  outline: 2px solid #0071e3;
-  outline-offset: 2px;
-}
-
-/* ========== Скроллбар (Apple Style) ========== */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-::-webkit-scrollbar-thumb {
-  background: rgba(0, 0, 0, 0.2);
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 0, 0, 0.3);
-}
-
-@media (prefers-color-scheme: dark) {
-  ::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.2);
+  /* ============================================
+     RESPONSIVE: Tablet ≤ 1024px
+     ============================================ */
+  @media (max-width: 1024px) {
+    .page-wrapper {
+      flex-direction: column;
+    }
+    
+    .page-card {
+      position: fixed;
+      left: 0;
+      right: 0;
+      width: 100%;
+      max-width: 100%;
+      padding: 1rem 1.5rem;
+    }
+    
+    .page-content {
+      padding-top: 90px;
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+    
+    .page-card__title {
+      font-size: 1.25rem;
+    }
+    
+    .page-card__icon {
+      font-size: 1.25rem;
+    }
+    
+    .page-card__description {
+      font-size: 0.9rem;
+    }
   }
   
-  ::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.3);
+  /* ============================================
+     RESPONSIVE: Mobile ≤ 768px
+     ============================================ */
+  @media (max-width: 768px) {
+    .page-card {
+      padding: 0.875rem 1rem;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    }
+    
+    .page-content {
+      padding-top: 80px;
+      padding-left: 1rem;
+      padding-right: 1rem;
+      padding-bottom: 1.5rem;
+    }
+    
+    .page-card__content {
+      gap: 10px;
+      flex-direction: row;
+    }
+    
+    .page-card__title {
+      font-size: 1.15rem;
+      max-width: calc(100% - 50px);
+    }
+    
+    .page-card__icon {
+      font-size: 1.15rem;
+    }
+    
+    .page-card__description {
+      display: none;
+    }
+    
+    .page-card__close-btn {
+      min-width: 36px;
+      min-height: 36px;
+      padding: 6px;
+      font-size: 18px;
+    }
   }
-}
+  
+  /* ============================================
+     RESPONSIVE: Small Mobile ≤ 480px
+     ============================================ */
+  @media (max-width: 480px) {
+    .page-card {
+      padding: 0.75rem 0.875rem;
+    }
+    
+    .page-content {
+      padding-top: 70px;
+      padding-left: 0.75rem;
+      padding-right: 0.75rem;
+      padding-bottom: 1rem;
+    }
+    
+    .page-card__title {
+      font-size: 1rem;
+    }
+    
+    .page-card__icon {
+      font-size: 1rem;
+    }
+    
+    .page-card__close-btn {
+      min-width: 32px;
+      min-height: 32px;
+      font-size: 16px;
+      padding: 4px;
+    }
+  }
+  
+  /* ============================================
+     RESPONSIVE: Extra Small ≤ 360px
+     ============================================ */
+  @media (max-width: 360px) {
+    .page-card {
+      padding: 0.625rem 0.75rem;
+    }
+    
+    .page-content {
+      padding-top: 65px;
+      padding-left: 0.625rem;
+      padding-right: 0.625rem;
+    }
+    
+    .page-card__title {
+      font-size: 0.95rem;
+    }
+    
+    .page-card__icon {
+      font-size: 0.95rem;
+    }
+    
+    .page-card__close-btn {
+      min-width: 30px;
+      min-height: 30px;
+      font-size: 14px;
+    }
+  }
+  
+  /* ============================================
+     LANDSCAPE MOBILE
+     ============================================ */
+  @media (max-height: 500px) and (orientation: landscape) {
+    .page-card {
+      padding: 0.5rem 1rem;
+    }
+    
+    .page-content {
+      padding-top: 60px;
+    }
+    
+    .page-card__title {
+      font-size: 1rem;
+    }
+    
+    .page-card__description {
+      display: none;
+    }
+    
+    .page-card__close-btn {
+      min-width: 32px;
+      min-height: 32px;
+    }
+  }
+  
+  /* ============================================
+     ACCESSIBILITY
+     ============================================ */
+  @media (prefers-reduced-motion: reduce) {
+    .page-card,
+    .page-card__close-btn,
+    .page-card__close-btn:hover {
+      transition: none !important;
+      transform: none !important;
+    }
+  }
+  
+  .page-card__close-btn:focus-visible {
+    outline: 2px solid #4a90e2;
+    outline-offset: 2px;
+  }
+  
+  /* ============================================
+     UTILITY CLASSES
+     ============================================ */
+  .page-card--compact .page-card__description {
+    display: none;
+  }
+  
+  .page-card--centered {
+    justify-content: center;
+  }
+  
+  .page-card--centered .page-card__content {
+    justify-content: center;
+  }
+  
+  /* ============================================
+     SCROLLBAR STYLING
+     ============================================ */
+  .page-content::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  .page-content::-webkit-scrollbar-track {
+    background: #f4f6f8;
+  }
+  
+  .page-content::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 3px;
+  }
+  
+  .page-content::-webkit-scrollbar-thumb:hover {
+    background: #a1a1a1;
+  }
+  
+  @media (prefers-color-scheme: dark) {
+    .page-content::-webkit-scrollbar-track {
+      background: #1a1a1a;
+    }
+    
+    .page-content::-webkit-scrollbar-thumb {
+      background: #444;
+    }
+    
+    .page-content::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
+  }
+  

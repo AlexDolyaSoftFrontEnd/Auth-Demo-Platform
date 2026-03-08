@@ -207,14 +207,6 @@ const MotoHub: React.FC = () => {
       <Sidebar />
       
       <main className="page-content">
-        {/* Заголовок страницы с мета-информацией */}
-        <header className="moto-header">
-          <div className="meta-info">
-            {/* Гараж 
-            <span className="info-icon" title="Информация">🤣</span> */}
-          </div>
-          <h1 className="page-title">Мотоциклы</h1>
-        </header>
 
         {/* Навигационные табы с обработчиками кликов */}
         <nav className="tabs-nav">
@@ -302,7 +294,7 @@ AllMotorcycles.displayName = 'AllMotorcycles';
 // Компонент рекомендованных мотоциклов
 const Recommendations: React.FC<MotoListProps> = React.memo(({ bikes }) => (
   <div className="recommendations-container">
-    <h2 className="section-title">Рекомендовано для вас</h2>
+    <h2 className="section-title">Рекомендовано</h2>
     {bikes.length > 0 ? (
       bikes.map((moto) => <MotorcycleCard key={moto.id} bike={moto} />)
     ) : (
@@ -330,7 +322,7 @@ Favorites.displayName = 'Favorites';
 // Компонент скрытых мотоциклов
 const HiddenBikes: React.FC<MotoListProps> = React.memo(({ bikes }) => (
   <div className="hidden-bikes-container">
-    <h2 className="section-title">Скрытые мотоциклы</h2>
+    <h2 className="section-title">Скрытые</h2>
     {bikes.length > 0 ? (
       bikes.map((moto) => <MotorcycleCard key={moto.id} bike={moto} />)
     ) : (

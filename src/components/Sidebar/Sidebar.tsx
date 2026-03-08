@@ -14,7 +14,7 @@ import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { useNavigate, NavLink, useLocation } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { logout } from '../../store/authSlice';
-import { FiHome, FiSettings, FiLogOut, FiUser, FiMenu } from 'react-icons/fi';
+import { FiHome, FiSettings, FiLogOut, FiUser, FiTable } from 'react-icons/fi';
 import './Sidebar.css';
 
 // ============================================
@@ -115,18 +115,23 @@ interface NavItem {
 const NAV_ITEMS: NavItem[] = [
   { 
     to: '/home', 
-    label: 'Главная', 
+    label: 'Home', 
     icon: <FiHome />, 
-    end: true // Точное совпадение только для '/' или '/home'
+    end: true 
   },
   { 
     to: '/motohub', 
-    label: 'MotoHub', 
+    label: 'Moto', 
     icon: <FiUser /> 
   },
   { 
+    to: '/table-demo', 
+    label: 'Table', 
+    icon: <FiTable /> 
+  },
+  { 
     to: '/settings', 
-    label: 'Настройки', 
+    label: 'Settings', 
     icon: <FiSettings /> 
   },
 ];
